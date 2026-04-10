@@ -1,0 +1,88 @@
+name: slow_mail
+description: "Email app."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  #sdk: ^3.8.1
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=2.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  enough_mail: ^2.1.7
+  master_detail_flow: ^3.1.0
+  flex_color_scheme: ^8.2.0
+  provider: ^6.1.5+1
+  shared_preferences: ^2.5.3
+  path_provider: ^2.1.5
+  path: ^1.9.1
+  two_dimensional_scrollables: ^0.4.1
+  enough_mail_html: ^2.0.2
+  flutter_quill: ^11.4.2
+  vsc_quill_delta_to_html: ^1.0.5
+  flutter_form_builder: ^10.2.0
+  flutter_quill_extensions: ^11.0.0
+  html: ^0.15.6
+  url_launcher: ^6.3.2
+  flutter_inappwebview: ^6.1.5
+  flutter_easyloading: ^3.0.5
+  flutter_secure_storage: ^10.0.0
+  share_plus: ^12.0.1
+  cryptography: ^2.9.0
+  cryptography_flutter: ^2.3.4
+  share_handler: ^0.0.25
+  cross_file: ^0.3.5+1
+  flutter_file_dialog: ^3.0.2
+  open_app_file: ^4.0.4
+  mime: ^2.0.0
+  openpgp: ^3.10.7
+  collection: ^1.19.1
+  flutter_expandable_fab: ^2.5.2
+  flutter_local_notifications: ^21.0.0
+  easy_localization: ^3.0.8
+  flutter_timezone: ^5.0.1
+  timezone: ^0.11.0
+  workmanager: ^0.9.0+3
+  convert: ^3.1.2
+  flutter_appauth: ^12.0.0
+  google_sign_in: ^7.2.0
+  connectivity_plus: ^7.0.0
+  oauth2_client: ^4.2.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  localize_generator_keys: ^0.0.5
+
+flutter:
+  uses-material-design: true
+  assets:
+    - resources/langs/
+    - assets/send_email.png
+    - assets/mail_folder.png
+    - assets/mailbox_drawer.png
+    - assets/mailbox.png
+    - assets/junk_mail.png
+    - assets/mail_new.png
+    - assets/inbox_mail.png
+    - assets/drafts_mail.png
+    - assets/sent_mail.png
+    - assets/trash_mail.png
+    - assets/forwarded.png
+    - assets/replied.png
+    - assets/image.png
+    - assets/attachment.png
+    - assets/application.png
+    - assets/pdf.png
+    - assets/audio.png
+    - assets/text.png
+    - assets/pgp_parser.html
+    - assets/email_encrypted.png
+    - assets/signed_pen.png
+    - assets/overlay.png
+    
