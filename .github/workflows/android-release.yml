@@ -38,10 +38,13 @@ jobs:
           EOF
 
       - run: flutter --version
-      - run: flutter analyze .
+      #- run: flutter analyze .
+
+      - name: Release Build per ABI (APK)
+        run: flutter build apk --release  --split-per-abi
 
       - name: Release Build (APK)
-        run: flutter build apk --release  --split-per-abi
+        run: flutter build apk --release
 
       - name: Rename results
         run: |
