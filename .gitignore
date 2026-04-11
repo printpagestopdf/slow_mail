@@ -43,6 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/keystore.jks
+/android/app/keytool.kdbx
+/android/key.properties
 
 .packages
 pubspec.lock
