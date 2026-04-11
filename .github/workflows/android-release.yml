@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: '21.x'
+          java-version: '21.0.9'
 
       - name: Dependencies holen
         run: flutter pub get
@@ -67,7 +67,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "latest"
+          tag: ${{ github.ref }}
           prerelease: true
           file_glob: true
           file: build/app/outputs/flutter-apk/*.apk
