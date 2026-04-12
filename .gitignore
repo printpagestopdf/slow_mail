@@ -52,3 +52,5 @@ pubspec.lock
 android/.gradle/
 android/app/build/
 ios/Pods/
+
+.unotes
