@@ -51,7 +51,7 @@ void main() async {
       path: 'resources/langs',
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
-      //startLocale: Locale('de'),
+      startLocale: Locale('en'),
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => EmailProvider()),

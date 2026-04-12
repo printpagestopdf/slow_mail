@@ -1,0 +1,15 @@
+<p>Slow Mail is an Android email client for reading and composing emails.</p>
+<p>As a key privacy feature, it does not store emails or message lists locally. All configurations can be exported to an (optionally encrypted) configuration file. These files can be imported into any Slow Mail client. You can either merge them with your existing settings or apply them as a temporary overlay, making the imported configuration (accounts, settings, PGP keys) valid only for the current session. Configuration files can be stored on any storage medium (local storage, network drives, USB sticks, etc.).</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>No local storage of emails or message lists</strong><ul>
+<li><strong>Advantages:</strong> Enhanced privacy and reduced local storage usage</li>
+<li><strong>Disadvantages:</strong> Requires an active internet connection and may result in slower load times</li>
+</ul>
+</li>
+<li>Full IMAP and SMTP support</li>
+<li>Export and import configurations (accounts, settings, PGP keys) to external files</li>
+<li>Optional encryption for configuration files</li>
+<li>Session-only configuration overlays</li>
+<li>Built-in PGP encryption support</li>
+</ul>

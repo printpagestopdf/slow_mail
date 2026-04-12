@@ -38,7 +38,7 @@ class _InfiniteTableState extends State<InfiniteTable> {
   Widget build(BuildContext context) {
     _scaledFontSize = context.watch<SettingsProvider>().fontScale * Theme.of(context).textTheme.bodyMedium!.fontSize!;
     _isWide = MediaQuery.of(context).size.width > mobileWidth;
-    _dateFieldWidth = context.getTextWidth("88.88.8888 88:88",
+    _dateFieldWidth = context.getTextWidth("88/88/8888 88:88",
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: _scaledFontSize));
     _textHeight = context
         .getTextSize(_isWide ? "WWWWW" : "WWWWWW\nXXXXXXX",

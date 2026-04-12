@@ -1,0 +1,1 @@
+Slow Mail is an Android email client for reading and composing emails
