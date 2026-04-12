@@ -67,19 +67,16 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now,
-            // so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("release")
             // wichtig für reproduzierbarkeit
-            isMinifyEnabled = false
-            isShrinkResources = false
+            //isMinifyEnabled = false
+            //isShrinkResources = false
           }
-        // debug {
+        debug {
             // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-        //     signingConfig = signingConfigs.getByName("debug")
-        // }
+            // Signing with release keys.
+            signingConfig = signingConfigs.getByName("release")
+        }
     }
 
     packaging {
