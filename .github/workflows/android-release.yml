@@ -40,10 +40,10 @@ jobs:
       - run: flutter --version
 
       - name: Release Build per ABI (APK)
-        run: flutter build apk --release  --split-per-abi --no-tree-shake-icons
+        run: flutter build apk --release  --split-per-abi
 
       - name: Release Build (APK)
-        run: flutter build apk --release --no-tree-shake-icons
+        run: flutter build apk --release
 
       - name: Rename results
         run: |

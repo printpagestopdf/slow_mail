@@ -127,6 +127,3 @@ dependencies {
 flutter {
     source = "../.."
 }
-
-println("STORE FILE: " + keystoreProperties["storeFile"])
-println("STORE EXISTS: " + file(keystoreProperties["storeFile"] as String).exists())

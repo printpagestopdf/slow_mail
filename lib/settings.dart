@@ -56,7 +56,10 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   double _fontScale = 1.0;
-  double get fontScale => _fontScale;
+  double get fontScale {
+    return _fontScale.clamp(1.0, 2.5);
+  }
+
   set fontScale(double value) {
     if (value != _fontScale) {
       _fontScale = value.clamp(1.0, 2.5);

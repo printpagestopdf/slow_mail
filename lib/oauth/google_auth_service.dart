@@ -3,7 +3,9 @@ import 'package:enough_mail/enough_mail.dart';
 import 'dart:convert';
 
 class GoogleAuthService {
-  final googleServerClientId = '1076430255982-hhi400hce6hcsvsgipmh5o7kr2mn0g8l.apps.googleusercontent.com';
+  // final googleServerClientId = '1076430255982-hhi400hce6hcsvsgipmh5o7kr2mn0g8l.apps.googleusercontent.com';
+  // final googleServerClientId = '442571260809-mj9ib858v03ovtdvgsmcffrfuijpsiqq.apps.googleusercontent.com'; //Android client
+  final googleServerClientId = '442571260809-p3qvokigctfm82evjj9m3p898b1a5hee.apps.googleusercontent.com'; //Web client
   static const _scopes = ['email', 'profile', 'https://mail.google.com/'];
   GoogleSignInAccount? account;
   bool isInitialized = false;
