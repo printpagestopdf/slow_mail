@@ -10,7 +10,6 @@ import 'package:slow_mail/utils/globals.dart';
 import 'package:slow_mail/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:slow_mail/mime_viewer.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:slow_mail/generated/locale_keys.g.dart';

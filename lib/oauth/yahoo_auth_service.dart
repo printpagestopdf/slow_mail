@@ -1,6 +1,5 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'dart:convert';
 
 class YahooAuthService {
   static const _clientId =

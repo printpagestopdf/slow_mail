@@ -1,13 +1,11 @@
 import 'package:slow_mail/utils/common_import.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:path/path.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
 import 'package:slow_mail/mail/mail.dart';
 import 'package:slow_mail/email_edit.dart';
 import 'package:slow_mail/mime_viewer.dart';
 import 'package:slow_mail/ui/dotted_progress.dart';
-import 'package:slow_mail/settings_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:slow_mail/ui/tree_view.dart' as tv;
 import 'package:enough_mail/enough_mail.dart';
@@ -699,10 +697,10 @@ class _InfiniteTableState extends State<InfiniteTable> {
       //   ScaleGestureRecognizer: GestureRecognizerFactoryWithHandlers<ScaleGestureRecognizer>(
       //       () => ScaleGestureRecognizer(), (ScaleGestureRecognizer instance) {
       //     instance.onStart = (ScaleStartDetails? ssd) {
-      //       print(ssd);
+      //       AppLogger.log(ssd);
       //     };
       //     instance.onUpdate = (ScaleUpdateDetails? ssd) {
-      //       print(ssd);
+      //       AppLogger.log(ssd);
       //     };
       //   }),
       // },

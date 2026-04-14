@@ -1,6 +1,6 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'dart:convert';
+import 'package:slow_mail/utils/utils.dart';
 
 class OutlookAuthService {
   static const _clientId = '07951e3d-b130-4c60-b232-697024ac0cb9';
@@ -39,15 +39,12 @@ class OutlookAuthService {
           // },
         ),
       );
-      print("=============TOKEN======================");
-      print(result.accessToken);
-      print("=============TOKEN END======================");
 
       if (result == null) return null;
       return _toOauthToken(result);
     } catch (e, stackTrace) {
-      print('Auth error: $e');
-      print('Stack: $stackTrace');
+      AppLogger.log('Auth error: $e');
+      AppLogger.log('Stack: $stackTrace');
       rethrow; // oder return null, aber zumindest printen
     }
   }

@@ -61,7 +61,7 @@ extension MailAddressExtension on MailAddress {
 
 extension MimeMessageExt on MimeMessage {
   String emailSubject() {
-    //print(decodeSubject());
+    //AppLogger.log(decodeSubject());
     return decodeSubject() ?? "Empty Subject";
   }
 
@@ -880,6 +880,7 @@ class EmailProvider extends ChangeNotifier {
   Future<void> initializePolling() async {
     try {
       await cancelPolling();
+      if (currentMailAccount == null) return;
       currentPollingClient = MailClient(currentMailAccount!,
           isLogEnabled: false,
           refresh: currentMailAccount!.incoming.authentication.authentication == Authentication.oauth2
@@ -887,7 +888,6 @@ class EmailProvider extends ChangeNotifier {
               : null);
       await currentPollingClient?.connect(timeout: Duration(seconds: currentMailAccountModel?.timeout ?? 20));
       await currentPollingClient?.selectInbox();
-
       _pollingLoadEventSubscription = currentPollingClient?.eventBus.on<MailLoadEvent>().listen((e) async {
         addMimeMessageByUid(e.message.uid);
         Map<String, dynamic> payload = {
@@ -965,10 +965,10 @@ class EmailProvider extends ChangeNotifier {
         }
       }
       initializePolling();
-    } catch (_) {}
-
-    if (!ignoreError && !(currentMailClient?.isConnected ?? false)) {
-      await closeCurrentMailAccount(withNotify: true);
+    } catch (_) {
+      if (!ignoreError && !(currentMailClient?.isConnected ?? true)) {
+        await closeCurrentMailAccount(withNotify: true);
+      }
     }
   }
 

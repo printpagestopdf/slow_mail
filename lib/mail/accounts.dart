@@ -1,18 +1,9 @@
 // ignore_for_file: dead_code
 
 import 'package:slow_mail/utils/common_import.dart';
-import 'dart:io';
 import 'package:enough_mail/enough_mail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:slow_mail/mail/mail.dart';
-import 'package:slow_mail/pgp/pgp_email.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
-import 'package:slow_mail/config_crypt.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:openpgp/openpgp.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:convert/convert.dart';

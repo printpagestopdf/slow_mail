@@ -16,13 +16,13 @@ class ConnectionProvider extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   Future<void> setNetAvailable(bool value) async {
-    print("Set netAvailable $value");
+    AppLogger.log("Set netAvailable $value");
     if (value == _netAvailable) return;
     if (value) {
       try {
         await NavService.navKey.currentContext?.read<EmailProvider>().resumeConnection();
       } catch (e) {
-        print("Resume: $e");
+        AppLogger.log("Resume: $e");
       }
       _netAvailable = value;
       notifyListeners();
@@ -48,7 +48,7 @@ class ConnectionProvider extends ChangeNotifier with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    print(state);
+    AppLogger.log(state);
     switch (state) {
       case AppLifecycleState.resumed:
         //await setNetAvailable(true);

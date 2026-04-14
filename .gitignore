@@ -54,3 +54,6 @@ android/app/build/
 ios/Pods/
 
 .unotes
+
+# FVM Version Cache
+.fvm/

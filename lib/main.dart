@@ -1,20 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
 import 'package:slow_mail/utils/common_import.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:slow_mail/theme.dart';
 import 'package:slow_mail/mail/accounts.dart';
 import 'package:slow_mail/mail/mail.dart';
-import 'package:master_detail_flow/master_detail_flow.dart';
 import 'package:slow_mail/infinite_table.dart';
-import 'package:slow_mail/email_edit.dart';
 import 'package:slow_mail/settings_page.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:slow_mail/mail/accounts.dart';
 import 'package:slow_mail/ui/tree_view.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:slow_mail/utils/android_notifyer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:easy_localization/easy_localization.dart';

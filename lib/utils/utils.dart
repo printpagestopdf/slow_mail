@@ -63,6 +63,15 @@ extension TextMetrics on BuildContext {
   }
 }
 
+class AppLogger {
+  static void log(Object? message) {
+    if (!kReleaseMode) {
+      // ignore: avoid_print
+      print(message);
+    }
+  }
+}
+
 LinkedHashMap<K, T> sortMapByValue<K, T>(LinkedHashMap<K, T> unsorted, int Function(T, T) sortFunc) {
   List<K> sortedKeys = unsorted.keys.toList(growable: false)..sort((k1, k2) => sortFunc(unsorted[k1]!, unsorted[k2]!));
   LinkedHashMap<K, T> sortedMap = LinkedHashMap.fromIterable(sortedKeys, key: (a) => a, value: (a) => unsorted[a]!);

@@ -1,9 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:slow_mail/utils/common_import.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/services.dart';
 import 'package:slow_mail/mail/accounts.dart';
@@ -14,7 +12,6 @@ import 'package:slow_mail/pgp/pgp_email.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
-import 'package:openpgp/openpgp.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

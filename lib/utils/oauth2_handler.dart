@@ -1,8 +1,6 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:enough_mail/enough_mail.dart';
 import 'package:slow_mail/oauth/google_auth_service.dart';
-import 'dart:convert';
 import 'package:slow_mail/utils/common_import.dart';
 
 const googleId = '1076430255982-llforq2bbrehsei5ainbfac98ivsr6a2';
@@ -85,7 +83,7 @@ class Oauth2Handler {
 
     // const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     // final jsonString = encoder.convert(mailAccount.toJson());
-    // print(jsonString);
+    // AppLogger.log(jsonString);
 
     final client = MailClient(mailAccount);
     await client.connect();
@@ -99,10 +97,10 @@ class Oauth2Handler {
 // Posteingang lesen
     await client.selectInbox();
     // final messages = await client.fetchRecentMessages(messageCount: 20);
-    // print(messages);
+    // AppLogger.log(messages);
 
     for (Mailbox mb in (await client.listMailboxes(/* recursive: true */))) {
-      print(mb);
+      AppLogger.log(mb);
     }
     await client.disconnect();
     //await signOut();

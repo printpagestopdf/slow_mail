@@ -10,16 +10,26 @@ jobs:
     steps:
       - name: Repo auschecken
         uses: actions/checkout@v4
+        with:
+          ref: v0.9.0
 
       - name: Flutter installieren
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.41.6'
-          channel: 'stable'
+        run: |
+          git clone https://github.com/flutter/flutter.git -b 3.41.6 --depth 1
+          echo "$PWD/flutter/bin" >> $GITHUB_PATH
+
+      - name: Flutter Version prüfen
+        run: flutter --version
+
 
       - uses: actions/setup-java@v1
         with:
           java-version: '21.0.9'
+
+      - name: Set reproducible env
+        run: |
+          echo "SOURCE_DATE_EPOCH=1776113449" >> $GITHUB_ENV
+          echo "PUB_CACHE=$PWD/.pub-cache" >> $GITHUB_ENV
 
       - name: Dependencies holen
         run: flutter pub get
@@ -37,13 +47,11 @@ jobs:
           storeFile=keystore.jks
           EOF
 
-      - run: flutter --version
-
       - name: Release Build per ABI (APK)
-        run: flutter build apk --release  --split-per-abi
+        run: flutter build apk --release  --split-per-abi  --no-tree-shake-icons
 
       - name: Release Build (APK)
-        run: flutter build apk --release
+        run: flutter build apk --release  --no-tree-shake-icons
 
       - name: Rename results
         run: |
@@ -66,8 +74,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: "latest"
-          prerelease: true
+          tag: "v0.9.0"
+          prerelease: false
           file_glob: true
           file: build/app/outputs/flutter-apk/*.apk
           overwrite: true

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:cryptography/cryptography.dart';
+import 'package:slow_mail/utils/utils.dart';
 
 class ConfigCrypt {
   ConfigCrypt();
@@ -97,15 +98,15 @@ class ConfigCrypt {
       plaintext: message,
     );
 
-    print("Encrypted:");
-    print(encrypted);
+    AppLogger.log("Encrypted:");
+    AppLogger.log(encrypted);
 
     final decrypted = await decryptText(
       password: password,
       encryptedData: encrypted,
     );
 
-    print("\nDecrypted:");
-    print(decrypted);
+    AppLogger.log("\nDecrypted:");
+    AppLogger.log(decrypted);
   }
 }
