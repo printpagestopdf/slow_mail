@@ -1,8 +1,9 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:slow_mail/utils/utils.dart';
+import 'package:slow_mail/oauth/oauth_service.dart';
 
-class OutlookAuthService {
+class OutlookAuthService implements OauthService {
   static const _clientId = '07951e3d-b130-4c60-b232-697024ac0cb9';
   static const _redirectUri = 'com.theripper.slowmail://auth';
   // static const _tenantId = 'common'; // persönliche + Geschäftskonten
@@ -40,7 +41,6 @@ class OutlookAuthService {
         ),
       );
 
-      if (result == null) return null;
       return _toOauthToken(result);
     } catch (e, stackTrace) {
       AppLogger.log('Auth error: $e');
@@ -49,8 +49,12 @@ class OutlookAuthService {
     }
   }
 
-  // Token-Refresh mit Refresh Token – funktioniert bei Outlook vollständig
-  Future<OauthToken?> refresh(OauthToken expiredToken) async {
+  @override
+  Future<OauthToken?> getOauthToken(OauthToken? expiredToken) async {
+    if (expiredToken == null || expiredToken.refreshToken.isNullOrEmpty()) {
+      return await signIn();
+    }
+    if (expiredToken.isValid) return expiredToken;
     try {
       final result = await _appAuth.token(
         TokenRequest(
@@ -65,7 +69,6 @@ class OutlookAuthService {
         ),
       );
 
-      if (result == null) return null;
       return _toOauthTokenRefresh(result);
     } catch (e) {
       return null;

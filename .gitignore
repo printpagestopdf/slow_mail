@@ -48,7 +48,6 @@ app.*.map.json
 /android/key.properties
 
 .packages
-pubspec.lock
 android/.gradle/
 android/app/build/
 ios/Pods/

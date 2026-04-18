@@ -1,7 +1,9 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
+import 'package:slow_mail/utils/common_import.dart';
+import 'package:slow_mail/oauth/oauth_service.dart';
 import 'package:enough_mail/enough_mail.dart';
 
-class YahooAuthService {
+class YahooAuthService implements OauthService {
   static const _clientId =
       'dj0yJmk9dWozOUQ3bkZzU1ZxJmQ9WVdrOWNGWTVOak5EVUcwbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTRj';
   static const _redirectUri = 'https://printpagestopdf.github.io/dns/oauth/callback/';
@@ -36,7 +38,12 @@ class YahooAuthService {
     return await _appAuth.endSession(EndSessionRequest(discoveryUrl: _discoveryUrl));
   }
 
-  Future<OauthToken?> refresh(OauthToken expiredToken) async {
+  @override
+  Future<OauthToken?> getOauthToken(OauthToken? expiredToken) async {
+    if (expiredToken == null || expiredToken.refreshToken.isNullOrEmpty()) {
+      return await signIn();
+    }
+    if (expiredToken.isValid) return expiredToken;
     try {
       final result = await _appAuth.token(
         TokenRequest(

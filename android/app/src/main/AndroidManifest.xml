@@ -82,51 +82,21 @@
                 <!-- extension .pgp -->
             </intent-filter>
 
-            <!-- Gmail oauth2 (debug) -->
-<!--             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="com.googleusercontent.apps.1076430255982-llforq2bbrehsei5ainbfac98ivsr6a2"/>
-            </intent-filter>
- -->
-<!-- 
-             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="com.theripper.slowmail"/>
-            </intent-filter>
-
- -->            
-  <!-- App Link für HTTPS yahoo Callback -->
- <!--  
-  <intent-filter android:autoVerify="true">
-    <action android:name="android.intent.action.VIEW"/>
-    <category android:name="android.intent.category.DEFAULT"/>
-    <category android:name="android.intent.category.BROWSABLE"/>
-    <data
-      android:scheme="https"
-      android:host="printpagestopdf.github.io"
-      android:path="/dns/oauth/callback/"/>
-  </intent-filter>
- -->
-  <!-- Custom Scheme für Intent URL Redirect -->
-<!--   
-  <intent-filter>
-    <action android:name="android.intent.action.VIEW"/>
-    <category android:name="android.intent.category.DEFAULT"/>
-    <category android:name="android.intent.category.BROWSABLE"/>
-    <data
-      android:scheme="com.theripper.slowmail"
-      android:host="auth"/>
-  </intent-filter>
- -->
         </activity>
     <activity
       android:name="net.openid.appauth.RedirectUriReceiverActivity"
+      android:theme="@style/Theme.AppCompat.Translucent.NoTitleBar"
       android:exported="true"
       tools:node="replace">
+    
+    <!-- Google: Android Client with custom redirect url -->
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="com.theripper.slowmail"
+              android:host="oauth2redirect" />
+    </intent-filter>
 
       <!-- Outlook: Custom Scheme ohne Unterstrich -->
       <!-- wird über manifestPlaceholders gesetzt -->

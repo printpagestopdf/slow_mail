@@ -1,5 +1,7 @@
 // ignore_for_file: dead_code
 
+import 'dart:math';
+
 import 'package:slow_mail/utils/common_import.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:slow_mail/mail/mail.dart';
@@ -10,6 +12,7 @@ import 'package:convert/convert.dart';
 import 'package:slow_mail/oauth/google_auth_service.dart';
 import 'package:slow_mail/oauth/yahoo_auth_service.dart';
 import 'package:slow_mail/oauth/outlook_auth_service.dart';
+import 'package:slow_mail/oauth/oauth_service.dart';
 
 class MailAccountController {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
@@ -65,6 +68,13 @@ class MailAccountController {
       raw[item.key] = {...item.value.baseMap()};
       raw[item.key]["incoming"]["authentication"]["password"] = '';
       raw[item.key]["outgoing"]["authentication"]["password"] = '';
+
+      if (raw[item.key]["incoming"]["authentication"]["token"] != null) {
+        raw[item.key]["incoming"]["authentication"]["token"] = null;
+      }
+      if (raw[item.key]["outgoing"]["authentication"]["token"] != null) {
+        raw[item.key]["outgoing"]["authentication"]["token"] = null;
+      }
     }
     await NavService.navKey.currentContext!.read<SettingsProvider>().prefs!.setString('ACCOUNTS', jsonEncode(raw));
   }
@@ -202,23 +212,24 @@ class MailAccountController {
     }
   }
 
-  Future<OauthToken?> refreshOauthToken(MailClient mc, OauthToken oldToken) async {
-    switch (oldToken.provider) {
-      case "google":
-        return await GoogleAuthService().buildFreshOauthToken();
-        break;
-      case "yahoo":
-        return await YahooAuthService().refresh(oldToken);
-        break;
-      case "outlook":
-        return await OutlookAuthService().refresh(oldToken);
-        break;
+  // Future<OauthToken?> refreshOauthToken(MailClient mc, OauthToken oldToken) async {
+  //   switch (oldToken.provider) {
+  //     case "google":
+  //       // return await GoogleAuthService().buildFreshOauthToken();
+  //       return await GoogleAuthService().refresh(oldToken);
+  //       break;
+  //     case "yahoo":
+  //       return await YahooAuthService().refresh(oldToken);
+  //       break;
+  //     case "outlook":
+  //       return await OutlookAuthService().refresh(oldToken);
+  //       break;
 
-      default:
-        return null;
-        break;
-    }
-  }
+  //     default:
+  //       return null;
+  //       break;
+  //   }
+  // }
 
   Map<String, MailAddress> get mailAddresses {
     return _rawAccounts.map<String, MailAddress>((key, value) {
@@ -229,6 +240,10 @@ class MailAccountController {
 }
 
 class MailAccountModel {
+  final FlutterSecureStorage _storage = const FlutterSecureStorage(
+    aOptions: AndroidOptions(sharedPreferencesName: 'slow_mail', preferencesKeyPrefix: 'slow_mail'),
+  );
+
   final Map<String, dynamic> _baseMap = <String, dynamic>{
     "incoming": <String, dynamic>{
       "serverConfig": <String, dynamic>{"type": "imap", "authenticationAlternative": null, "usernameType": "unknown"},
@@ -352,12 +367,14 @@ class MailAccountModel {
       if (_baseMap["incoming"]["authentication"]["password"] != null) {
         (_baseMap["incoming"]["authentication"] as Map).remove("password");
       }
+      incomingAuthenticationToken = null;
     }
 
     if (outgoingAuthentication == Authentication.oauth2) {
       if (_baseMap["outgoing"]["authentication"]["password"] != null) {
         (_baseMap["outgoing"]["authentication"] as Map).remove("password");
       }
+      outgoingAuthenticationToken = null;
     }
   }
 
@@ -517,35 +534,64 @@ class MailAccountModel {
     return MailAccount.fromJson(_baseMap);
   }
 
+  Future<OauthToken?> refreshOauthToken(MailClient mc, OauthToken oldToken) async {
+    Map<String, dynamic>? jToken = await getOauthToken();
+    if (jToken != null) {
+      return OauthToken.fromJson(jToken);
+    } else {
+      return null;
+    }
+
+    // switch (oldToken.provider) {
+    //   case "google":
+    //     // return await GoogleAuthService().buildFreshOauthToken();
+    //     return await GoogleAuthService().refresh(oldToken);
+    //     break;
+    //   case "yahoo":
+    //     return await YahooAuthService().refresh(oldToken);
+    //     break;
+    //   case "outlook":
+    //     return await OutlookAuthService().refresh(oldToken);
+    //     break;
+
+    //   default:
+    //     return null;
+    //     break;
+    // }
+  }
+
   Future<Map<String, dynamic>?> getOauthToken() async {
-    if (incomingHostname?.endsWith("gmail.com") ?? false) {
-      return await getGmailToken();
-    }
-    if (incomingHostname?.contains("yahoo") ?? false) {
-      return await getYahooToken();
-    }
-    if ((incomingHostname?.contains("outlook") ?? false) || (incomingHostname?.contains("hotmail") ?? false)) {
-      return await getOutlookToken();
+    OauthToken? token;
+    if (incomingAuthenticationToken != null) {
+      token = OauthToken.fromJson(incomingAuthenticationToken!);
+    } else if ((await _storage.containsKey(key: "${id}_oauthtoken"))) {
+      String? strToken = await _storage.read(key: "${id}_oauthtoken");
+      if (strToken != null) {
+        token = OauthToken.fromJson(jsonDecode(strToken));
+      }
     }
 
-    return await getGmailToken();
-  }
-
-  Future<Map<String, dynamic>?> getOutlookToken() async {
-    return (await OutlookAuthService().signIn())?.toJson();
-  }
-
-  Future<Map<String, dynamic>?> getYahooToken() async {
-    return (await YahooAuthService().signIn())?.toJson();
-  }
-
-  Future<Map<String, dynamic>?> getGmailToken() async {
-    if (GoogleAuthService().isInitialized &&
-        GoogleAuthService().account != null &&
-        GoogleAuthService().account!.email != email) {
-      await GoogleAuthService().signOut();
+    if (token?.isValid ?? false) {
+      incomingAuthenticationToken = token!.toJson();
+      await _storage.write(key: "${id}_oauthtoken", value: jsonEncode(token.toJson()));
+      return token.toJson();
+    } else {
+      incomingAuthenticationToken = null;
+      await _storage.delete(key: "${id}_oauthtoken");
     }
-    return (await GoogleAuthService().buildFreshOauthToken())?.toJson();
+
+    OauthService oauthService = OauthService.getByDomain(incomingHostname!);
+    OauthToken? oauthToken = await oauthService.getOauthToken(token);
+
+    if (oauthToken == null) {
+      incomingAuthenticationToken = null;
+      await _storage.delete(key: "${id}_oauthtoken");
+      return null;
+    } else {
+      outgoingAuthenticationToken = incomingAuthenticationToken = oauthToken.toJson();
+      await _storage.write(key: "${id}_oauthtoken", value: jsonEncode(incomingAuthenticationToken));
+      return incomingAuthenticationToken;
+    }
   }
 
   @override

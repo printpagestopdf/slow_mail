@@ -884,7 +884,7 @@ class EmailProvider extends ChangeNotifier {
       currentPollingClient = MailClient(currentMailAccount!,
           isLogEnabled: false,
           refresh: currentMailAccount!.incoming.authentication.authentication == Authentication.oauth2
-              ? MailAccountController().refreshOauthToken
+              ? currentMailAccountModel?.refreshOauthToken
               : null);
       await currentPollingClient?.connect(timeout: Duration(seconds: currentMailAccountModel?.timeout ?? 20));
       await currentPollingClient?.selectInbox();
@@ -963,8 +963,13 @@ class EmailProvider extends ChangeNotifier {
           await (currentMailClient!.lowLevelIncomingMailClient as ImapClient)
               .selectMailbox(currentMailClient!.selectedMailbox!);
         }
+
+        if (processingState != MailProcessingState.done) {
+          await listMailboxMessages(currentMailClient!.selectedMailbox!);
+        }
       }
       initializePolling();
+      notifyListeners();
     } catch (_) {
       if (!ignoreError && !(currentMailClient?.isConnected ?? true)) {
         await closeCurrentMailAccount(withNotify: true);
@@ -1015,7 +1020,7 @@ class EmailProvider extends ChangeNotifier {
       currentMailClient = MailClient(currentMailAccount!,
           isLogEnabled: false,
           refresh: currentMailAccount!.incoming.authentication.authentication == Authentication.oauth2
-              ? MailAccountController().refreshOauthToken
+              ? currentMailAccountModel?.refreshOauthToken
               : null);
 
       await currentMailClient!.connect(timeout: Duration(seconds: currentMailAccountModel?.timeout ?? 20));
