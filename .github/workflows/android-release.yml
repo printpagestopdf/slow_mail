@@ -23,6 +23,10 @@ jobs:
         run: |
           echo "Flutter commit: $FLUTTER_COMMIT"
 
+      - name: Build-Pfad ausgeben
+        run: |
+           pwd     
+
       - name: Flutter Version prüfen
         run: flutter --version
 
