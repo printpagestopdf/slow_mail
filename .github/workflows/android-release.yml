@@ -17,6 +17,11 @@ jobs:
         run: |
           git clone https://github.com/flutter/flutter.git -b 3.41.6 --depth 1
           echo "$PWD/flutter/bin" >> $GITHUB_PATH
+          echo "FLUTTER_COMMIT=$(git -C flutter rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Flutter Revision ausgeben
+        run: |
+          echo "Flutter commit: $FLUTTER_COMMIT"
 
       - name: Flutter Version prüfen
         run: flutter --version
