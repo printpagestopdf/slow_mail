@@ -58,19 +58,26 @@ android {
 
     signingConfigs {
         create("release") {
+        val propsFile = rootProject.file("key.properties")
+        if (propsFile.exists()) {
             keyAlias = keystoreProperties["keyAlias"] as String
             keyPassword = keystoreProperties["keyPassword"] as String
             storeFile = keystoreProperties["storeFile"]?.let { file(it) }
             storePassword = keystoreProperties["storePassword"] as String
         }
+        }
     }
 
     buildTypes {
         release {
+        val propsFile = rootProject.file("key.properties")
+        if (propsFile.exists()) {
             signingConfig = signingConfigs.getByName("release")
+        }
             // wichtig für reproduzierbarkeit
-            //isMinifyEnabled = false
-            //isShrinkResources = false
+            isMinifyEnabled = false
+            isShrinkResources = false
+            vcsInfo.include = false
           }
         debug {
             // TODO: Add your own signing config for the release build.

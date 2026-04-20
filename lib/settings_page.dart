@@ -248,9 +248,32 @@ class _SettingsPageState extends State<SettingsPage> {
               title: Badge(
                 isLabelVisible: !context.watch<ConnectionProvider>().netAvailable,
                 offset: Offset(20, -4),
-                label: Text(
-                  LocaleKeys.msg_no_network.tr(),
-                  style: TextStyle(fontSize: 14),
+                label: SizedBox(
+                  height: 26,
+                  child: Padding(
+                    padding: EdgeInsetsGeometry.directional(start: 5, end: 5),
+                    child: InkWell(
+                      onTap: () => context.read<ConnectionProvider>().enableNetIfConnected(),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            LocaleKeys.msg_no_network.tr(),
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsGeometry.directional(start: 4, end: 4),
+                            child: Icon(
+                              Icons.refresh,
+                              size: 20,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 child: Text(LocaleKeys.settings.tr()),
               ),
