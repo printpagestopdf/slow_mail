@@ -62,7 +62,7 @@ jobs:
 
       - name: Patch dartjni
         run: |
-          JNI_CMAKE=$(find $HOME/.pub-cache/hosted/pub.dev -path "*/jni-*/src/CMakeLists.txt" | head -n 1)
+          JNI_CMAKE=$(find $PUB_CACHE/hosted/pub.dev -path "*/jni-*/src/CMakeLists.txt" | head -n 1)
           if [ -n "$JNI_CMAKE" ] && [ -f "$JNI_CMAKE" ]; then
             sed -i '2i add_link_options("LINKER:--build-id=none")' "$JNI_CMAKE"
             echo "Patched CMakeLists.txt in $JNI_CMAKE"
