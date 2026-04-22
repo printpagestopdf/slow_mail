@@ -6,7 +6,6 @@ import 'package:slow_mail/utils/globals.dart';
 import 'package:slow_mail/settings.dart';
 import 'package:slow_mail/utils/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:openpgp/openpgp.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as secstore;
 
 import 'dart:convert';
@@ -156,25 +155,50 @@ class PgpEmail {
     if (privateKeyPassword.isNotEmpty) {
       isPassphraseOk(privateKeyData, privateKeyPassword);
     }
-    PrivateKeyMetadata keyMeta = await getPrivateKeyMetadata(privateKeyData);
-    List<String>? keyIds = await getKeyId(privateKeyData);
+
+    Map<String, dynamic>? keyMetaJS = await getPrivateKeyMetadataJS(privateKeyData);
+    if (keyMetaJS == null || keyMetaJS["keyId"] == null) throw MessageException("Unable to get Key Metadata");
+
     List<Map<dynamic, dynamic>> identities = [];
-    for (Identity id in keyMeta.identities) {
-      identities.add(id.toJson());
+    for (String userId in keyMetaJS["userIds"]) {
+      try {
+        MailAddress adr = MailAddress.parse(userId);
+        identities.add({"id": userId, "name": adr.personalName ?? "", "comment": "", "email": adr.email});
+      } catch (_) {}
     }
 
-    String mainKey = keyMeta.keyId.toLowerCase();
-    privateKeyList[mainKey] = {
-      "keyIds": keyIds,
+    String mainKey = keyMetaJS["keyId"];
+    publicKeyList[mainKey] = {
+      "keyIds": keyMetaJS["keyIds"],
       "identities": identities,
-      "creationTime": keyMeta.creationTime,
-      "fingerprint": keyMeta.fingerprint,
-      "keyId": keyMeta.keyId.toLowerCase(),
-      "canSign": keyMeta.canSign,
-      "encrypted": keyMeta.encrypted,
+      "creationTime": keyMetaJS["creationTime"],
+      "fingerprint": hexStringToByteString(keyMetaJS["fingerprint"]),
+      "keyId": mainKey,
+      "canSign": keyMetaJS["canSign"],
+      "canEncrypt": keyMetaJS["canEncrypt"],
       "armoredKey": privateKeyData,
       "privateKeyPassword": privateKeyPassword,
     };
+
+    // PrivateKeyMetadata keyMeta = await getPrivateKeyMetadata(privateKeyData);
+    // List<String>? keyIds = await getKeyId(privateKeyData);
+    // List<Map<dynamic, dynamic>> identities = [];
+    // for (Identity id in keyMeta.identities) {
+    //   identities.add(id.toJson());
+    // }
+
+    // String mainKey = keyMeta.keyId.toLowerCase();
+    // privateKeyList[mainKey] = {
+    //   "keyIds": keyIds,
+    //   "identities": identities,
+    //   "creationTime": keyMeta.creationTime,
+    //   "fingerprint": keyMeta.fingerprint,
+    //   "keyId": keyMeta.keyId.toLowerCase(),
+    //   "canSign": keyMeta.canSign,
+    //   "encrypted": keyMeta.encrypted,
+    //   "armoredKey": privateKeyData,
+    //   "privateKeyPassword": privateKeyPassword,
+    // };
 
     if (privateKeyList[mainKey]!.containsKey('keyIds') && (privateKeyList[mainKey]?['keyIds'] is List)) {
       for (String? subKey in privateKeyList[mainKey]?['keyIds']) {
@@ -214,27 +238,52 @@ class PgpEmail {
 
   Future<void> addPublicKey(String publicKeyData) async {
     if (publicKeyData.isEmpty) throw MessageException("Key must not be empty");
-    List<String>? keyIds = await getPublicKeyId(publicKeyData);
-    if (keyIds == null || keyIds.isEmpty) throw MessageException("Unable to get Key Id (error in key data?)");
+    Map<String, dynamic>? keyMetaJS = await getPublicKeyMetadataJS(publicKeyData);
+    if (keyMetaJS == null || keyMetaJS["keyId"] == null) throw MessageException("Unable to get Key Metadata");
 
-    PublicKeyMetadata keyMeta = await getPublicKeyMetadata(publicKeyData);
     List<Map<dynamic, dynamic>> identities = [];
-    for (Identity id in keyMeta.identities) {
-      identities.add(id.toJson());
+    for (String userId in keyMetaJS["userIds"]) {
+      try {
+        MailAddress adr = MailAddress.parse(userId);
+        identities.add({"id": userId, "name": adr.personalName ?? "", "comment": "", "email": adr.email});
+      } catch (_) {}
     }
 
-    String mainKey = keyMeta.keyId.toLowerCase();
-
+    String mainKey = keyMetaJS["keyId"];
     publicKeyList[mainKey] = {
-      "keyIds": keyIds,
+      "keyIds": keyMetaJS["keyIds"],
       "identities": identities,
-      "creationTime": keyMeta.creationTime,
-      "fingerprint": keyMeta.fingerprint,
-      "keyId": keyMeta.keyId.toLowerCase(),
-      "canSign": keyMeta.canSign,
-      "canEncrypt": keyMeta.canEncrypt,
+      "creationTime": keyMetaJS["creationTime"],
+      "fingerprint": hexStringToByteString(keyMetaJS["fingerprint"]),
+      "keyId": mainKey,
+      "canSign": keyMetaJS["canSign"],
+      "canEncrypt": keyMetaJS["canEncrypt"],
       "armoredKey": publicKeyData,
     };
+
+    // List<String>? keyIds = await getPublicKeyId(publicKeyData);
+    // if (keyIds == null || keyIds.isEmpty) throw MessageException("Unable to get Key Id (error in key data?)");
+    // AppLogger.log(keyIds);
+
+    // PublicKeyMetadata keyMeta = await getPublicKeyMetadata(publicKeyData);
+    // // List<Map<dynamic, dynamic>> identities = [];
+    // for (Identity id in keyMeta.identities) {
+    //   identities.add(id.toJson());
+    // }
+    // AppLogger.log(keyMeta);
+
+    // String mainKey = keyMeta.keyId.toLowerCase();
+
+    // publicKeyList[mainKey] = {
+    //   "keyIds": keyIds,
+    //   "identities": identities,
+    //   "creationTime": keyMeta.creationTime,
+    //   "fingerprint": keyMeta.fingerprint,
+    //   "keyId": keyMeta.keyId.toLowerCase(),
+    //   "canSign": keyMeta.canSign,
+    //   "canEncrypt": keyMeta.canEncrypt,
+    //   "armoredKey": publicKeyData,
+    // };
 
     if (publicKeyList[mainKey]!.containsKey('identities') && (publicKeyList[mainKey]?['identities'] is List)) {
       for (dynamic identity in publicKeyList[mainKey]?['identities']) {
@@ -247,13 +296,13 @@ class PgpEmail {
     await storeKeys(privateKeys: false);
   }
 
-  Future<PrivateKeyMetadata> getPrivateKeyMetadata(String privateKeyData) async {
-    return await OpenPGP.getPrivateKeyMetadata(privateKeyData);
-  }
+  // Future<PrivateKeyMetadata> getPrivateKeyMetadata(String privateKeyData) async {
+  //   return await OpenPGP.getPrivateKeyMetadata(privateKeyData);
+  // }
 
-  Future<PublicKeyMetadata> getPublicKeyMetadata(String publicKeyData) async {
-    return await OpenPGP.getPublicKeyMetadata(publicKeyData);
-  }
+  // Future<PublicKeyMetadata> getPublicKeyMetadata(String publicKeyData) async {
+  //   return await OpenPGP.getPublicKeyMetadata(publicKeyData);
+  // }
 
   Future<Map<String, dynamic>?> decryptSearchKey(String encData, {List<MailAddress>? from}) async {
     String? privKey;
@@ -405,6 +454,36 @@ class PgpEmail {
     return null;
   }
 
+  Future<Map<String, dynamic>?> getPublicKeyMetadataJS(String armoredKey) async {
+    jsResult = null;
+    await ensureWebViewRunning();
+
+    wvController!.evaluateJavascript(
+      source: "getPublicKeyMetadata(${jsonEncode(armoredKey)});",
+    );
+
+    if (await waitForResult()) {
+      if (jsResult == null) return null;
+      return jsonDecode(jsResult!);
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> getPrivateKeyMetadataJS(String armoredKey) async {
+    jsResult = null;
+    await ensureWebViewRunning();
+
+    wvController!.evaluateJavascript(
+      source: "getPrivateKeyMetadata(${jsonEncode(armoredKey)});",
+    );
+
+    if (await waitForResult()) {
+      if (jsResult == null) return null;
+      return jsonDecode(jsResult!);
+    }
+    return null;
+  }
+
   Future<bool> isPassphraseOk(String armoredKey, String? password) async {
     jsResult = null;
     await ensureWebViewRunning();
@@ -505,5 +584,88 @@ class PgpEmail {
       wvController = null;
     }
     _instance = null;
+  }
+}
+
+class PublicKeyMetadataJS {
+  String? keyId;
+  String? fingerprint;
+  List<String>? userIds;
+  String? creationTime;
+  Algorithm? algorithm;
+  List<SubKeys>? subKeys;
+
+  PublicKeyMetadataJS({this.keyId, this.fingerprint, this.userIds, this.creationTime, this.algorithm, this.subKeys});
+
+  PublicKeyMetadataJS.fromJson(Map<String, dynamic> json) {
+    keyId = json['keyId'];
+    fingerprint = json['fingerprint'];
+    userIds = json['userIds'].cast<String>();
+    creationTime = json['creationTime'];
+    algorithm = json['algorithm'] != null ? new Algorithm.fromJson(json['algorithm']) : null;
+    if (json['subKeys'] != null) {
+      subKeys = <SubKeys>[];
+      json['subKeys'].forEach((v) {
+        subKeys!.add(new SubKeys.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['keyId'] = this.keyId;
+    data['fingerprint'] = this.fingerprint;
+    data['userIds'] = this.userIds;
+    data['creationTime'] = this.creationTime;
+    if (this.algorithm != null) {
+      data['algorithm'] = this.algorithm!.toJson();
+    }
+    if (this.subKeys != null) {
+      data['subKeys'] = this.subKeys!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Algorithm {
+  String? algorithm;
+  String? curve;
+
+  Algorithm({this.algorithm, this.curve});
+
+  Algorithm.fromJson(Map<String, dynamic> json) {
+    algorithm = json['algorithm'];
+    curve = json['curve'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['algorithm'] = this.algorithm;
+    data['curve'] = this.curve;
+    return data;
+  }
+}
+
+class SubKeys {
+  String? keyId;
+  Algorithm? algorithm;
+  String? creationTime;
+
+  SubKeys({this.keyId, this.algorithm, this.creationTime});
+
+  SubKeys.fromJson(Map<String, dynamic> json) {
+    keyId = json['keyId'];
+    algorithm = json['algorithm'] != null ? new Algorithm.fromJson(json['algorithm']) : null;
+    creationTime = json['creationTime'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['keyId'] = this.keyId;
+    if (this.algorithm != null) {
+      data['algorithm'] = this.algorithm!.toJson();
+    }
+    data['creationTime'] = this.creationTime;
+    return data;
   }
 }

@@ -60,6 +60,55 @@ async function getPublicKeyId(armoredKey) {
 
 }
 
+
+async function getPublicKeyMetadata(armoredKey) {
+
+  const key = await openpgp.readKey({ armoredKey });
+  const encryptionKey = await key.getEncryptionKey()
+  const signingKey = await key.getSigningKey()
+
+  const primaryKey = key.getKeyID().toHex();
+
+  const result = {
+    keyId: primaryKey,
+    fingerprint: key.getFingerprint(),
+    userIds: key.getUserIDs(),
+    creationTime: key.getCreationTime(),
+    algorithm: key.getAlgorithmInfo(),
+    canSign: (signingKey != null),
+    canEncrypt: (encryptionKey != null ),
+    keyIds: key.getKeys().map(k => k.getKeyID().toHex()),
+  };
+
+  window.flutter_inappwebview.callHandler(
+    'jsResult',
+    JSON.stringify(result)
+  );
+}
+
+async function getPrivateKeyMetadata(armoredKey) {
+
+  const key = await openpgp.readPrivateKey({ armoredKey });
+  const encryptionKey = await key.getEncryptionKey()
+  const signingKey = await key.getSigningKey()
+
+  const result = {
+    keyId: key.getKeyID().toHex(),
+    fingerprint: key.getFingerprint(),
+    userIds: key.getUserIDs(),
+    creationTime: key.getCreationTime(),
+    algorithm: key.getAlgorithmInfo(),
+    canSign: (signingKey != null),
+    canEncrypt: (encryptionKey != null ),
+    keyIds: key.getKeys().map(k => k.getKeyID().toHex()),
+  };
+
+  window.flutter_inappwebview.callHandler(
+    'jsResult',
+    JSON.stringify(result)
+  );
+}
+
 async function encryptMessage(message, pubKeys, signingKey, passphrase, hasBcc) {
   if (typeof openpgp === "undefined") {
     throw new Error("OpenPGP.js not loaded");

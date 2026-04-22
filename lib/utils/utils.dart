@@ -72,6 +72,19 @@ class AppLogger {
   }
 }
 
+// e.g "d95403adeaaa457f9804d47f70ced0dbb6e46d68" => "217:84:3:173:234:170:69:127:152:4:212:127:112:206:208:219:182:228:109:104"
+String hexStringToByteString(String hex) {
+  final buffer = <int>[];
+
+  for (int i = 0; i < hex.length; i += 2) {
+    final byteHex = hex.substring(i, i + 2);
+    final byteDec = int.parse(byteHex, radix: 16);
+    buffer.add(byteDec);
+  }
+
+  return buffer.join(':');
+}
+
 LinkedHashMap<K, T> sortMapByValue<K, T>(LinkedHashMap<K, T> unsorted, int Function(T, T) sortFunc) {
   List<K> sortedKeys = unsorted.keys.toList(growable: false)..sort((k1, k2) => sortFunc(unsorted[k1]!, unsorted[k2]!));
   LinkedHashMap<K, T> sortedMap = LinkedHashMap.fromIterable(sortedKeys, key: (a) => a, value: (a) => unsorted[a]!);

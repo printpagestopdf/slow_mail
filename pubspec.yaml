@@ -38,7 +38,6 @@ dependencies:
   flutter_file_dialog: 3.0.2
   open_app_file: 4.0.4
   mime: 2.0.0
-  openpgp: 3.10.7
   collection: 1.19.1
   flutter_expandable_fab: 2.5.2
   flutter_local_notifications: 21.0.0
