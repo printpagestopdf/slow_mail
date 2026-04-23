@@ -46,6 +46,7 @@ android {
         versionName = flutter.versionName
 
         multiDexEnabled = true
+
         ndk {
             //abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a", "x86_64"))
         }
@@ -76,9 +77,14 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
             // wichtig für reproduzierbarkeit
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             vcsInfo.include = false
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules.pro"
+            )
           }
         debug {
             // TODO: Add your own signing config for the release build.
@@ -111,14 +117,19 @@ android {
     //     }
     // }
 
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
 }
 
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.13.0")
-    implementation("com.android.support:multidex:1.0.3")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    //implementation("com.android.support:multidex:1.0.3")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")  
 }
 
 

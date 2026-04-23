@@ -1,7 +1,4 @@
 // ignore_for_file: dead_code
-
-import 'dart:math';
-
 import 'package:slow_mail/utils/common_import.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:slow_mail/mail/mail.dart';
@@ -9,9 +6,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:cryptography/cryptography.dart';
 import 'package:convert/convert.dart';
-import 'package:slow_mail/oauth/google_auth_service.dart';
-import 'package:slow_mail/oauth/yahoo_auth_service.dart';
-import 'package:slow_mail/oauth/outlook_auth_service.dart';
 import 'package:slow_mail/oauth/oauth_service.dart';
 
 class MailAccountController {
