@@ -11,13 +11,14 @@ jobs:
       - name: Repo auschecken
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: v0.9.0
           # submodules: recursive
 
       - name: Init Flutter submodule with full history and tags
         run: |
           git submodule update --init
-          git -C flutter fetch --unshallow --tags
+          git -C flutter fetch --tags
           
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
