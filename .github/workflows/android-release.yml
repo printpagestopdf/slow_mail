@@ -127,3 +127,7 @@ jobs:
           file: build/app/outputs/flutter-apk/*.apk
           overwrite: true
           body: "Preview binaries for testinstall"
+
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3          
