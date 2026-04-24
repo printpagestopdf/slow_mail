@@ -49,8 +49,7 @@ jobs:
         run: |
           FLUTTER_ROOT="${GITHUB_WORKSPACE}/flutter"
           echo "FLUTTER_ROOT=$FLUTTER_ROOT" >> $GITHUB_ENV
-          echo "$FLUTTER_ROOT/bin" >> $GITHUB_PATH
-          
+          echo "$FLUTTER_ROOT/bin" >> $GITHUB_PATH          
           flutter config --no-analytics
           flutter doctor -v
 
