@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:core';
 import 'package:slow_mail/mail/accounts.dart';
@@ -217,7 +215,6 @@ class SettingsProvider extends ChangeNotifier {
           break;
         default:
           throw Exception("Importtype not supported");
-          break;
       }
     }
 

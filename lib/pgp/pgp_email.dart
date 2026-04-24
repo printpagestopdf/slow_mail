@@ -346,7 +346,7 @@ class PgpEmail {
           mainTitle: "Private key password",
           incomingTitle: "($email)",
           incomingValidator: (pw) async {
-            bool isPassOK = await (await PgpEmail.getInstance()).isPassphraseOk(privateKeyMap["armoredKey"], pw);
+            bool isPassOK = await (PgpEmail.getInstance()).isPassphraseOk(privateKeyMap["armoredKey"], pw);
             if (!isPassOK) {
               return "Wrong password";
             }
@@ -584,88 +584,5 @@ class PgpEmail {
       wvController = null;
     }
     _instance = null;
-  }
-}
-
-class PublicKeyMetadataJS {
-  String? keyId;
-  String? fingerprint;
-  List<String>? userIds;
-  String? creationTime;
-  Algorithm? algorithm;
-  List<SubKeys>? subKeys;
-
-  PublicKeyMetadataJS({this.keyId, this.fingerprint, this.userIds, this.creationTime, this.algorithm, this.subKeys});
-
-  PublicKeyMetadataJS.fromJson(Map<String, dynamic> json) {
-    keyId = json['keyId'];
-    fingerprint = json['fingerprint'];
-    userIds = json['userIds'].cast<String>();
-    creationTime = json['creationTime'];
-    algorithm = json['algorithm'] != null ? new Algorithm.fromJson(json['algorithm']) : null;
-    if (json['subKeys'] != null) {
-      subKeys = <SubKeys>[];
-      json['subKeys'].forEach((v) {
-        subKeys!.add(new SubKeys.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['keyId'] = this.keyId;
-    data['fingerprint'] = this.fingerprint;
-    data['userIds'] = this.userIds;
-    data['creationTime'] = this.creationTime;
-    if (this.algorithm != null) {
-      data['algorithm'] = this.algorithm!.toJson();
-    }
-    if (this.subKeys != null) {
-      data['subKeys'] = this.subKeys!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Algorithm {
-  String? algorithm;
-  String? curve;
-
-  Algorithm({this.algorithm, this.curve});
-
-  Algorithm.fromJson(Map<String, dynamic> json) {
-    algorithm = json['algorithm'];
-    curve = json['curve'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['algorithm'] = this.algorithm;
-    data['curve'] = this.curve;
-    return data;
-  }
-}
-
-class SubKeys {
-  String? keyId;
-  Algorithm? algorithm;
-  String? creationTime;
-
-  SubKeys({this.keyId, this.algorithm, this.creationTime});
-
-  SubKeys.fromJson(Map<String, dynamic> json) {
-    keyId = json['keyId'];
-    algorithm = json['algorithm'] != null ? new Algorithm.fromJson(json['algorithm']) : null;
-    creationTime = json['creationTime'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['keyId'] = this.keyId;
-    if (this.algorithm != null) {
-      data['algorithm'] = this.algorithm!.toJson();
-    }
-    data['creationTime'] = this.creationTime;
-    return data;
   }
 }

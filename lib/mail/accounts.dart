@@ -299,17 +299,17 @@ class MailAccountModel {
     bool incomingAskForPassword = false,
     bool outgoingAskForPassword = false,
   }) {
-    this.userName = incomingUserName;
-    this.name = name;
-    this.email = email;
-    this.timeout = timeout;
+    userName = incomingUserName;
+    name = name;
+    email = email;
+    timeout = timeout;
 
-    this.incomingAuthentication = incomingAuthType;
-    this.incomingHostname = incomingHost;
-    this.incomingPort = incomingPort;
-    this.incomingSocketType = incomingSocketType;
-    this.incomingPassword = incomingPassword;
-    this.incomingUserName = incomingUserName;
+    incomingAuthentication = incomingAuthType;
+    incomingHostname = incomingHost;
+    incomingPort = incomingPort;
+    incomingSocketType = incomingSocketType;
+    incomingPassword = incomingPassword;
+    incomingUserName = incomingUserName;
 
     if (outgoingAuthEqualIncoming) {
       outgoingPassword = incomingPassword;
@@ -317,8 +317,8 @@ class MailAccountModel {
       outgoingAuthType = incomingAuthType;
       outgoingAskForPassword = incomingAskForPassword;
     }
-    this.outgoingAuthentication = outgoingAuthType;
-    this.outgoingHostname = outgoingHost;
+    outgoingAuthentication = outgoingAuthType;
+    outgoingHostname = outgoingHost;
     this.outgoingPort = outgoingPort;
     this.outgoingSocketType = outgoingSocketType;
     this.outgoingPassword = outgoingPassword;

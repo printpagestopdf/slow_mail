@@ -8,7 +8,6 @@ import 'package:slow_mail/mail/mail.dart';
 import 'package:slow_mail/infinite_table.dart';
 import 'package:slow_mail/settings_page.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:slow_mail/mail/accounts.dart';
 import 'package:slow_mail/ui/tree_view.dart';
 import 'package:slow_mail/utils/android_notifyer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

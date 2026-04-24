@@ -1,8 +1,6 @@
-import 'dart:collection';
 import 'package:collection/collection.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:slow_mail/utils/common_import.dart';
-import 'package:flutter/foundation.dart';
 import 'package:slow_mail/mail/accounts.dart';
 import 'package:slow_mail/utils/android_notifyer.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -122,7 +120,7 @@ extension MimeMessageExt on MimeMessage {
   String getTextParts() {
     String res = "";
     String txt = "";
-    for (MimePart mp in allPartsFlat!) {
+    for (MimePart mp in allPartsFlat) {
       if (mp.isTextMediaType()) {
         txt = "";
         try {
@@ -198,7 +196,7 @@ extension MimeMessageExt on MimeMessage {
     }
     MimePart part = await mc.fetchMessagePart(
       this,
-      fetchId!,
+      fetchId,
     );
     return part.decodeContentBinary();
   }
@@ -373,7 +371,7 @@ class MailValidator extends Object {
     if (str == null) return ret;
 
     MailAddress adr;
-    for (String s in MailValidator.listFromString(str!)) {
+    for (String s in MailValidator.listFromString(str)) {
       try {
         adr = MailAddress.parse(s);
         ret.add(adr);
@@ -581,7 +579,7 @@ class EmailProvider extends ChangeNotifier {
     String? errMsg;
     // ignore: prefer_if_null_operators
     List<int> lst = items == null ? List<int>.from(_selectedEmails) : items;
-    int unseen = 0;
+    // int unseen = 0;
 
     try {
       List<MimeMessage> msgs = _emailMessages.whereIndexed((int idx, MimeMessage mm) => lst.contains(idx)).toList();
@@ -686,7 +684,7 @@ class EmailProvider extends ChangeNotifier {
   }
 
   MimeMessage getMessage(int index) {
-    if (index > (_lastEmailMessageIndex ?? 0)) _lastEmailMessageIndex = index;
+    if (index > (_lastEmailMessageIndex)) _lastEmailMessageIndex = index;
 
     if (index >= _emailMessages.length) {
       if (_currentMessageSequence!.hasNext && processingState != MailProcessingState.busy) getNextPage(index);

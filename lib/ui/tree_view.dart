@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:enough_mail/enough_mail.dart';
-import 'package:provider/provider.dart';
 import 'package:slow_mail/mail/mail.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:slow_mail/generated/locale_keys.g.dart';
 import 'package:slow_mail/utils/common_import.dart';
 
 class TreeProvider extends ChangeNotifier {
@@ -55,7 +52,7 @@ class _MailboxNodeState extends State<MailboxNode> {
   final Color _bgSelected = Colors.black12;
   final double _indent = 14.0;
   final List<MailboxNode> _children = [];
-  bool _isExpanded = false;
+  // bool _isExpanded = false;
 
   @override
   void initState() {

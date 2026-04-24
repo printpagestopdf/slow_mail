@@ -30,7 +30,7 @@ class AttachmentLocalInfo {
 
   AttachmentLocalInfo.fromFile(this.fi)
       : name = p.basename(fi!.path),
-        _mimeType = lookupMimeType(fi!.path);
+        _mimeType = lookupMimeType(fi.path);
 
   AttachmentLocalInfo.fromContentInfo(this.ci)
       : name = ci!.fileName ?? "unknown.bin",
@@ -116,7 +116,7 @@ class EmailEditor extends StatefulWidget {
 
 class _EmailEditorState extends State<EmailEditor> {
   bool _hasPgp = false;
-  bool _canEncrypt = false;
+  // bool _canEncrypt = false;
   final outsideTapManager = OutsideTapManager();
 
   final _fabKey = GlobalKey<ExpandableFabState>();
@@ -142,7 +142,9 @@ class _EmailEditorState extends State<EmailEditor> {
   final QuillController _controller = () {
     return QuillController.basic(
         config: QuillControllerConfig(
+      // ignore: experimental_member_use
       clipboardConfig: QuillClipboardConfig(
+        // ignore: experimental_member_use
         enableExternalRichPaste: true,
       ),
     ));
@@ -451,6 +453,7 @@ class _EmailEditorState extends State<EmailEditor> {
                                 showSubscript: false,
                                 showSuperscript: false,
                                 showJustifyAlignment: true,
+                                // ignore: experimental_member_use
                                 showClipboardPaste: true,
                                 showAlignmentButtons: true,
                                 toolbarIconAlignment: WrapAlignment.start,
@@ -824,7 +827,7 @@ class _EmailEditorState extends State<EmailEditor> {
     } else {
       msgBuilder.setContentType(MediaType.fromSubtype(MediaSubtype.multipartAlternative));
       msgBuilder.addTextPlain(outPlainText ?? '');
-      msgBuilder.addTextHtml(outHtml ?? '');
+      msgBuilder.addTextHtml(outHtml);
     }
 
     msgBuilder.messageId = MessageBuilder.createMessageId(widget.mailClient.account.outgoing.serverConfig.hostname);
@@ -885,7 +888,7 @@ class _EmailEditorState extends State<EmailEditor> {
 
   ({List<String> pubKeys, String? privKey, String? privKeyPassword})? getKeyList(
       List<MailAddress> encryptEmail, MailAddress? signEmail) {
-    SettingsProvider s = context.read<SettingsProvider>();
+    // SettingsProvider s = context.read<SettingsProvider>();
     List<String> pubKeys = [];
     String? privKey;
     String? privKeyPassword;

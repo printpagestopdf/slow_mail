@@ -4,7 +4,6 @@ import 'package:slow_mail/webview_inapp.dart';
 import 'package:slow_mail/email_edit.dart';
 import 'package:slow_mail/mail/mail.dart';
 import 'package:open_app_file/open_app_file.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:share_plus/share_plus.dart';

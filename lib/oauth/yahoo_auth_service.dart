@@ -27,7 +27,6 @@ class YahooAuthService implements OauthService {
           scopes: _scopes,
         ),
       );
-      if (result == null) return null;
       return _toOauthToken(result);
     } catch (e) {
       throw Exception('Yahoo Login fehlgeschlagen: $e');

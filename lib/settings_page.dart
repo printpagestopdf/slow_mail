@@ -1,9 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:slow_mail/utils/common_import.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:flutter/services.dart';
 import 'package:slow_mail/mail/accounts.dart';
 import 'package:slow_mail/mail/mail.dart';
 import 'package:slow_mail/titled_card.dart';
@@ -13,7 +11,6 @@ import 'package:enough_mail/enough_mail.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final _accountsFormKey = GlobalKey<FormBuilderState>();
 final _exportFormKey = GlobalKey<FormBuilderState>();
@@ -21,9 +18,9 @@ final _importFormKey = GlobalKey<FormBuilderState>();
 final _pgpFormKey = GlobalKey<FormBuilderState>();
 final _generalFormKey = GlobalKey<FormBuilderState>();
 
-final FlutterSecureStorage _storage = const FlutterSecureStorage();
-AndroidOptions _getAndroidOptions() =>
-    const AndroidOptions(sharedPreferencesName: 'slow_mail', preferencesKeyPrefix: 'slow_mail');
+// final FlutterSecureStorage _storage = const FlutterSecureStorage();
+// AndroidOptions _getAndroidOptions() =>
+//     const AndroidOptions(sharedPreferencesName: 'slow_mail', preferencesKeyPrefix: 'slow_mail');
 
 class GeneralPageProvider extends ChangeNotifier {
   GeneralPageProvider(BuildContext context) {
@@ -840,7 +837,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                   break;
                                 default:
                                   throw Exception("Importtype not supported");
-                                  break;
                               }
                               await context.read<SettingsProvider>().updateConfiguration(
                                     json,
@@ -1237,7 +1233,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   errorMessage(LocaleKeys.err_cant_find_config.tr());
                                   return;
                                 }
-                                setFormByClientConfig(_accountsFormKey.currentState?.instantValue["email"], cfg!);
+                                setFormByClientConfig(_accountsFormKey.currentState?.instantValue["email"], cfg);
                               },
                             ),
                           ),
@@ -1635,7 +1631,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           try {
                             MailAccountModel? newAcc = getMailAccountFromForm(context);
                             if (newAcc == null) throw Exception("Unable to create account");
-                            await MailAccountController().addAccount(newAcc!);
+                            await MailAccountController().addAccount(newAcc);
                             succesMessage(LocaleKeys.msg_saved_successfully.tr());
                           } catch (ex) {
                             errorMessage("Failed to save (${ex.toString()})");
@@ -1716,7 +1712,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Map<String, dynamic> _formFromMailAccount(MailAccountModel? acc) {
     if (acc == null) return <String, dynamic>{};
 
-    String userName = acc.userName;
+    // String userName = acc.userName;
 
     return <String, dynamic>{
       'email': acc.email,

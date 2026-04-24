@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' show QuillDialogTheme;
+// ignore: experimental_member_use
 import 'package:flutter_quill/internal.dart';
 
 final imageRegExp = RegExp(

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:enough_mail/enough_mail.dart';
 import 'package:slow_mail/utils/common_import.dart';
@@ -87,28 +86,28 @@ class GoogleAuthService implements OauthService {
   }
 
   /// Extrahiert die E-Mail aus dem JWT ID Token (ohne externe Lib).
-  String? _extractEmailFromIdToken(String idToken) {
-    try {
-      final parts = idToken.split('.');
-      if (parts.length != 3) return null;
+  // String? _extractEmailFromIdToken(String idToken) {
+  //   try {
+  //     final parts = idToken.split('.');
+  //     if (parts.length != 3) return null;
 
-      // Base64Url → Base64 (Padding ergänzen)
-      var payload = parts[1];
-      payload = payload.replaceAll('-', '+').replaceAll('_', '/');
-      switch (payload.length % 4) {
-        case 2:
-          payload += '==';
-          break;
-        case 3:
-          payload += '=';
-          break;
-      }
+  //     // Base64Url → Base64 (Padding ergänzen)
+  //     var payload = parts[1];
+  //     payload = payload.replaceAll('-', '+').replaceAll('_', '/');
+  //     switch (payload.length % 4) {
+  //       case 2:
+  //         payload += '==';
+  //         break;
+  //       case 3:
+  //         payload += '=';
+  //         break;
+  //     }
 
-      final decoded = utf8.decode(base64.decode(payload));
-      final Map<String, dynamic> claims = json.decode(decoded);
-      return claims['email'] as String?;
-    } catch (_) {
-      return null;
-    }
-  }
+  //     final decoded = utf8.decode(base64.decode(payload));
+  //     final Map<String, dynamic> claims = json.decode(decoded);
+  //     return claims['email'] as String?;
+  //   } catch (_) {
+  //     return null;
+  //   }
+  // }
 }
