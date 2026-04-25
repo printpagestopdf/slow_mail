@@ -1,0 +1,60 @@
+a { color:#5D5D9E; } 
+a:visited { color:#5D5D9E; } 
+a:active { color:#5C615E; } 
+a:hover { color:#B2B3B4; } 
+#menu_3dae042d a { text-decoration: none; }
+#menu_3dae042d_pane { background-color: #2C2825; border: 1px solid #646464; padding-top: 10px; padding-bottom: 10px; box-shadow: 2px 2px 6px 0px rgba(8, 8, 8, 0.784314); }
+#menu_3dae042d_hr { background-color: #646464; height: 1px; border: none; }
+#menu_3dae042d_entry { padding-left: 10px; padding-right: 10px; padding-top: 3px; padding-bottom: 3px; }
+#menu_3dae042d_entry:hover { background-color: #323232; color: #FFFFFF !important; }
+#menu_3dae042d_entry:hover span { color:#FFFFFF !important; }
+		.menu_3dae042d_mainMenuEntry { text-align: center; }
+		.menu_3dae042d_mainMenuEntry:hover {	background-color:#FFFFFF; }
+		.menu_3dae042d_mainMenuEntry:hover span {	color:#000000 !important; }
+		#menu_3dae042d .mobileEntry { display: none; } 
+		#menu_3dae042d .normalEntry { display: block; } 
+		@media only screen and (max-width:450px) { 
+			#menu_3dae042d .mobileEntry { display: block; } 
+			#menu_3dae042d .normalEntry { display: none; } 
+		}
+body { background-color:#FFFFFF; padding:0;  margin: 0; }
+.textstyle1 { text-align:center; }
+#container_1d02c053 { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:45px; min-width:200px; background:none;  }
+#container_1d02c053_padding { margin: 10px; display: block;  }
+#text_3c000d03 { vertical-align: bottom; position:relative; display: inline-block; background:none;  }
+.textstyle2 { text-align:left; }
+.textstyle3 { font-size:20pt; font-family:'Segoe Script', 'Palatino Linotype', serif; color:#000000; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.392157);  }
+.textstyle4 { font-size:13pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000;  }
+#text_7901585d { vertical-align: bottom; position:relative; display: inline-block; background:none;  }
+.textstyle5 { font-size:12pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000;  }
+#container_23932c22 { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:14px; background-color:#2C2825;  }
+#container_23932c22_padding { margin: 10px; display: block;  }
+#menu_3dae042d { vertical-align: bottom; position:relative; display: inline-block; width:336px; height:34px; max-width:800px; text-align:left; background:none;  }
+.menuholder1 { position: relative; overflow: hidden; width: 100%; height: 100%; }
+.menustyle1 { position:absolute; width:100px; height:34px; left:10px;  }
+.menuentry_text1 { position:absolute; top:0px; bottom:0px; left:0px; right:0px; margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:auto; height:18px;  }
+.textstyle6 { font-size:10pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#FFFFFF; font-weight:bold;  white-space: nowrap; }
+.menuentry_text2 { position:absolute; top:0px; bottom:0px; left:0px; right:0px; margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:auto; height:22px;  }
+.textstyle7 { font-size:12pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#FFFFFF; font-weight:bold;  white-space: nowrap; }
+.menustyle2 { position:absolute; width:100px; height:34px; left:110px;  }
+.menustyle3 { position:absolute; width:100px; height:34px; left:210px;  }
+.textstyle8 { font-size:15pt; font-family:Arial, Helvetica, sans-serif; color:#FFFFFF;  white-space: nowrap; }
+#container_6a5612c4 { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:375px; background-color:#FFFFFF; background-image: url(rc_images/briefkaesten_2048x818.jpg); background-position:top left; background-size:cover;  }
+#container_6a5612c4_padding { margin: 10px; display: block;  }
+#container_22e4a421 { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:70px; max-width:800px; background:none;  }
+#container_22e4a421_padding { margin: 10px; display: block;  }
+.textstyle9 { font-size:16pt; font-family:'Segoe Script', 'Palatino Linotype', serif; color:#000000; line-height: 1.5;  }
+.textstyle10 { font-size:16pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000; line-height: 1.5;  }
+.textstyle11 { font-size:12pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000; line-height: 1.5;  }
+#img_24ad08ac { vertical-align: bottom; position:relative; display: inline-block; float:left; margin:10px 20px 20px 10px; width:22%; background:none; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.588235); height:auto;  }
+#img_7fa21dec { vertical-align: bottom; position:relative; display: inline-block; float:right; margin:10px 20px 20px 10px; width:22%; background:none; box-shadow: 5px 5px 4px 0px rgba(0, 0, 0, 0.588235); height:auto;  }
+.textstyle12 { font-size:10pt; font-family:Arial, Helvetica, sans-serif; color:#000000;  }
+@media only screen and (max-width: 450px)
+{
+		#menu_3dae042d { width:100px;  }
+}
+@media only screen and (max-width: 400px)
+{
+		#text_3c000d03 * span { font-size:14pt;  }
+		#text_7901585d { display:none;  }
+}

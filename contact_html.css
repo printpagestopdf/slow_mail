@@ -1,0 +1,58 @@
+a { color:#5D5D9E; } 
+a:visited { color:#5D5D9E; } 
+a:active { color:#5C615E; } 
+a:hover { color:#B2B3B4; } 
+#menu_60dba8b2 a { text-decoration: none; }
+#menu_60dba8b2_pane { background-color: #2C2825; border: 1px solid #646464; padding-top: 10px; padding-bottom: 10px; box-shadow: 2px 2px 6px 0px rgba(8, 8, 8, 0.784314); }
+#menu_60dba8b2_hr { background-color: #646464; height: 1px; border: none; }
+#menu_60dba8b2_entry { padding-left: 10px; padding-right: 10px; padding-top: 3px; padding-bottom: 3px; }
+#menu_60dba8b2_entry:hover { background-color: #323232; color: #FFFFFF !important; }
+#menu_60dba8b2_entry:hover span { color:#FFFFFF !important; }
+		.menu_60dba8b2_mainMenuEntry { text-align: center; }
+		.menu_60dba8b2_mainMenuEntry:hover {	background-color:#FFFFFF; }
+		.menu_60dba8b2_mainMenuEntry:hover span {	color:#000000 !important; }
+		#menu_60dba8b2 .mobileEntry { display: none; } 
+		#menu_60dba8b2 .normalEntry { display: block; } 
+		@media only screen and (max-width:450px) { 
+			#menu_60dba8b2 .mobileEntry { display: block; } 
+			#menu_60dba8b2 .normalEntry { display: none; } 
+		}
+body { background-color:#FFFFFF; padding:0;  margin: 0; }
+.textstyle1 { text-align:center; }
+#container_956f2ba { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:45px; min-width:200px; background:none;  }
+#container_956f2ba_padding { margin: 10px; display: block;  }
+#text_10b96d19 { vertical-align: bottom; position:relative; display: inline-block; background:none;  }
+.textstyle2 { text-align:left; }
+.textstyle3 { font-size:20pt; font-family:'Segoe Script', 'Palatino Linotype', serif; color:#000000; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.392157);  }
+.textstyle4 { font-size:13pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000;  }
+#text_6ec4f2a { vertical-align: bottom; position:relative; display: inline-block; background:none;  }
+.textstyle5 { font-size:12pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000;  }
+#container_744bd6fd { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:14px; background-color:#2C2825;  }
+#container_744bd6fd_padding { margin: 10px; display: block;  }
+#menu_60dba8b2 { vertical-align: bottom; position:relative; display: inline-block; width:336px; height:34px; max-width:800px; text-align:left; background:none;  }
+.menuholder1 { position: relative; overflow: hidden; width: 100%; height: 100%; }
+.menustyle1 { position:absolute; width:100px; height:34px; left:10px;  }
+.menuentry_text1 { position:absolute; top:0px; bottom:0px; left:0px; right:0px; margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:auto; height:18px;  }
+.textstyle6 { font-size:10pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#FFFFFF; font-weight:bold;  white-space: nowrap; }
+.menuentry_text2 { position:absolute; top:0px; bottom:0px; left:0px; right:0px; margin-top:auto; margin-bottom:auto; margin-left:auto; margin-right:auto; height:22px;  }
+.textstyle7 { font-size:12pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#FFFFFF; font-weight:bold;  white-space: nowrap; }
+.menustyle2 { position:absolute; width:100px; height:34px; left:110px;  }
+.menustyle3 { position:absolute; width:100px; height:34px; left:210px;  }
+.textstyle8 { font-size:15pt; font-family:Arial, Helvetica, sans-serif; color:#FFFFFF;  white-space: nowrap; }
+#container_3ca701ed { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:61px; background-color:#FFFFFF; background-image: url(rc_images/grass_field3.jpg); background-position:center left; background-size:cover;  }
+#container_3ca701ed_padding { margin: 10px; display: block;  }
+#container_62a75dad { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:70px; max-width:800px; background:none;  }
+#container_62a75dad_padding { margin: 10px; display: block;  }
+.textstyle9 { font-size:16pt; font-family:'Segoe Script', 'Palatino Linotype', serif; color:#000000; line-height: 1.5;  }
+.textstyle10 { font-size:16pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000; line-height: 1.5;  }
+.textstyle11 { font-size:12pt; font-family:'Palatino Linotype', 'Book Antiqua3', Palatino, serif; color:#000000; line-height: 1.5;  }
+.textstyle12 { font-size:10pt; font-family:Arial, Helvetica, sans-serif; color:#000000;  }
+@media only screen and (max-width: 450px)
+{
+		#menu_60dba8b2 { width:100px;  }
+}
+@media only screen and (max-width: 400px)
+{
+		#text_10b96d19 * span { font-size:14pt;  }
+		#text_6ec4f2a { display:none;  }
+}
