@@ -13,3 +13,4 @@
 <li>Session-only configuration overlays</li>
 <li>Built-in PGP encryption support</li>
 </ul>
+<strong><a href="https://printpagestopdf.github.io/slow_mail/">You can find help and more detailed information here</a></strong>
