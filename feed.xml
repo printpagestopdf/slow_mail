@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>Slow Mail</title>
+    <link href="https://printpagestopdf.github.io/slow_mail/feed.xml" rel="self" />
+    <link href="https://printpagestopdf.github.io/slow_mail" />
+    <updated>1970-01-01T01:00:00+01:00</updated>
+    <author>
+        <name>TheRipper</name>
+    </author>
+    <id>https://printpagestopdf.github.io/slow_mail</id>
+
+</feed>

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://printpagestopdf.github.io/slow_mail/sitemap.xml
