@@ -1,0 +1,30 @@
+/**
+ * Theme Name: IKnowledgeBase Child
+ * Template:   iknowledgebase
+ * 
+ */
+ 
+#main-hero {
+	height: 400px;
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: cover;	
+	margin-left: 0.1rem;
+	margin-right: 0.1rem;
+}
+
+.lang-item {
+	display: inline;
+}
+
+.no-columns .column,
+.no-columns .column.is-4-widescreen{
+	width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+	#main-hero {
+		height: 200px;
+	}
+	
+}
