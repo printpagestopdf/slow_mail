@@ -157,5 +157,11 @@ abstract class  LocaleKeys {
   static const txt_mailbox_is_empty = 'txt_mailbox_is_empty';
   static const external_content_is_blocked = 'external_content_is_blocked';
   static const external_content_is_allowed = 'external_content_is_allowed';
+  static const lbl_startupaction = 'lbl_startupaction';
+  static const item_startupaction_none = 'item_startupaction_none';
+  static const item_startupaction_lastused = 'item_startupaction_lastused';
+  static const on = 'on';
+  static const off = 'off';
+  static const help = 'help';
 
 }

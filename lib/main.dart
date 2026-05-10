@@ -18,6 +18,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:slow_mail/utils/background_task.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,7 @@ void main() async {
       path: 'resources/langs',
       fallbackLocale: Locale('en'),
       assetLoader: CodegenLoader(),
-      //startLocale: Locale('en'),
+      startLocale: kDebugMode ? Locale('de') : null,
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => EmailProvider()),
@@ -67,8 +68,6 @@ void main() async {
             navigatorKey: NavService.navKey,
             theme: AppTheme.light,
             darkTheme: AppTheme.dark,
-            // theme: AppTheme.lightTheme, // Light mode theme
-            // darkTheme: AppTheme.darkTheme, // Dark mode theme
             themeMode: ThemeMode.system, // Follows system setting
             builder: EasyLoading.init(),
             routes: {
@@ -426,6 +425,27 @@ class SlowMailState extends State<SlowMailApp> {
                 ),
               ),
             ),
+            Divider(),
+            TextButton.icon(
+                label: Text(
+                  LocaleKeys.help.tr(),
+                  softWrap: true,
+                  style: TextTheme.of(context).titleMedium,
+                ),
+                icon: Icon(
+                  Icons.help_outline_outlined,
+                  size: 24,
+                ),
+                onPressed: () {
+                  final String path = context.locale.languageCode == "de"
+                      ? 'printpagestopdf.github.io/slow_mail/de/inhalt/index.html'
+                      : 'printpagestopdf.github.io/slow_mail/toc/index.html';
+                  final Uri emailLaunchUri = Uri(
+                    scheme: 'https',
+                    path: path,
+                  );
+                  launchUrl(emailLaunchUri);
+                }),
           ],
         ),
       ),

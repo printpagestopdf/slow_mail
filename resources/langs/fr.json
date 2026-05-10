@@ -155,5 +155,11 @@
   "txt_really_delete": "Voulez-vous vraiment supprimer ? ",
   "txt_mailbox_is_empty": "La boîte de réception {mailbox} est vide",
   "external_content_is_blocked": "Le contenu externe est bloqué ",
-  "external_content_is_allowed": "Le contenu externe est autorisé "
+  "external_content_is_allowed": "Le contenu externe est autorisé ",
+  "lbl_startupaction": "Ouvrir le compte mail au démarrage",
+  "item_startupaction_none": "Ne pas ouvrir de compte",
+  "item_startupaction_lastused": "Dernier compte utilisé",
+  "on": "Activé",
+  "off": "Désactivé",
+  "help": "Aide"
 }

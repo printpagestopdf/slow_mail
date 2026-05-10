@@ -155,5 +155,11 @@
   "txt_really_delete": "Deseja realmente excluir?",
   "txt_mailbox_is_empty": "A caixa de correio {mailbox} está vazia",
   "external_content_is_blocked": "Conteúdo externo bloqueado",
-  "external_content_is_allowed": "Conteúdo externo permitido"
+  "external_content_is_allowed": "Conteúdo externo permitido",
+  "lbl_startupaction": "Abrir conta de e-mail na inicialização",
+  "item_startupaction_none": "Não abrir nenhuma conta",
+  "item_startupaction_lastused": "Última conta usada",
+  "on": "Ativado",
+  "off": "Desativado",
+  "help": "Ajuda"
 }

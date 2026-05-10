@@ -155,5 +155,11 @@
   "txt_really_delete": "Do you really want to delete?",
   "txt_mailbox_is_empty": "Mailbox {mailbox} is empty",
   "external_content_is_blocked": "External content is blocked",
-  "external_content_is_allowed": "External content is allowed"
+  "external_content_is_allowed": "External content is allowed",
+  "lbl_startupaction": "Open email account on startup",
+  "item_startupaction_none": "Don't open any account",
+  "item_startupaction_lastused": "Last used account",
+  "on": "On",
+  "off": "Off",
+  "help": "Help"
 }

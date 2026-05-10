@@ -11,6 +11,7 @@ import 'package:enough_mail/enough_mail.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final _accountsFormKey = GlobalKey<FormBuilderState>();
 final _exportFormKey = GlobalKey<FormBuilderState>();
@@ -26,10 +27,12 @@ class GeneralPageProvider extends ChangeNotifier {
   GeneralPageProvider(BuildContext context) {
     _notifyCurrent = context.read<SettingsProvider>().generalPrefs["currentNotificationEnabled"] ?? false;
     _markAsReadOnOpen = context.read<SettingsProvider>().generalPrefs["markAsReadOnOpen"] ?? false;
+    _isExternalBlocked = context.read<SettingsProvider>().generalPrefs["isExternalBlocked"] ?? true;
   }
 
   bool _notifyCurrent = false;
   bool _markAsReadOnOpen = false;
+  bool _isExternalBlocked = true;
 
   bool get notifyCurrent => _notifyCurrent;
   set notifyCurrent(bool value) {
@@ -42,6 +45,13 @@ class GeneralPageProvider extends ChangeNotifier {
   set markAsReadOnOpen(bool value) {
     if (value == _markAsReadOnOpen) return;
     _markAsReadOnOpen = value;
+    notifyListeners();
+  }
+
+  bool get isExternalBlocked => _isExternalBlocked;
+  set isExternalBlocked(bool value) {
+    if (value == _isExternalBlocked) return;
+    _isExternalBlocked = value;
     notifyListeners();
   }
 }
@@ -202,7 +212,7 @@ class _SettingsPageState extends State<SettingsPage> {
           }
         },
         child: DefaultTabController(
-          length: 4,
+          length: kDebugMode ? 5 : 4,
           child: Scaffold(
             appBar: AppBar(
               elevation: 1,
@@ -238,6 +248,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [Icon(Icons.key), Text(LocaleKeys.pgp_settings.tr())],
                     ),
                   ),
+                  if (kDebugMode)
+                    Tab(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 10,
+                        children: [Icon(Icons.bug_report), Text("Debugging")],
+                      ),
+                    ),
                 ],
               ),
               shadowColor:
@@ -283,12 +301,135 @@ class _SettingsPageState extends State<SettingsPage> {
                 generalTab(context),
                 exportImport(context),
                 pgpSettings(context),
+                if (kDebugMode) debugInfo(context),
               ]),
               // ),
             ),
           ),
           // ),
         ),
+      ),
+    );
+  }
+
+  Widget debugInfo(BuildContext context) {
+    final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+    AndroidOptions getSlowMailAndroidOptions() =>
+        const AndroidOptions(sharedPreferencesName: 'slow_mail', preferencesKeyPrefix: 'slow_mail');
+
+    String content = "";
+    JsonEncoder encoder = JsonEncoder.withIndent('  ');
+
+    return Padding(
+      padding: EdgeInsetsGeometry.all(15),
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Wrap(
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        content = encoder.convert(
+                            NavService.navKey.currentContext!.read<SettingsProvider>().prefs!.getBool('isPrefsInit') ??
+                                false);
+                      });
+                    },
+                    child: Text("isPrefsInit"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        content = encoder.convert(jsonDecode(
+                            NavService.navKey.currentContext!.read<SettingsProvider>().prefs!.getString("GENERAL") ??
+                                "{}"));
+                      });
+                    },
+                    child: Text("GENERAL"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        content = encoder.convert(jsonDecode(
+                            NavService.navKey.currentContext!.read<SettingsProvider>().prefs!.getString("ACCOUNTS") ??
+                                "{}"));
+                      });
+                    },
+                    child: Text("ACCOUNTS"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        content = encoder.convert(jsonDecode(
+                            NavService.navKey.currentContext!.read<SettingsProvider>().prefs!.getString("PGP") ??
+                                "{}"));
+                      });
+                    },
+                    child: Text("PGP"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () async {
+                      // await _storage.delete(key: "pgp_PGP", aOptions: _getAndroidOptions());
+                      Map<String, String> opts = await secureStorage.readAll(aOptions: getSlowMailAndroidOptions());
+                      setState(() {
+                        content = encoder.convert(opts);
+                      });
+                    },
+                    child: Text("SecureStorage"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () async {
+                      Map<String, String> opts = await secureStorage.readAll(
+                          aOptions:
+                              AndroidOptions(sharedPreferencesName: 'slow_mail', preferencesKeyPrefix: 'privatepgp'));
+                      setState(() {
+                        content = encoder.convert(opts);
+                      });
+                    },
+                    child: Text("SecurePGPStorage"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () async {
+                      // Logging in Datei statt print
+                      final directory = await getApplicationDocumentsDirectory();
+                      File file = File('${directory.path}/workmanager_log.txt');
+                      String fileContent = await file.readAsString();
+
+                      setState(() {
+                        content = fileContent;
+                      });
+                    },
+                    child: Text("WorkmanagerFile"),
+                  ),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Theme.of(context).colorScheme.error),
+                        foregroundColor: Theme.of(context).colorScheme.error),
+                    onPressed: () async {
+                      await context.read<SettingsProvider>().prefs!.remove("isPrefsInit");
+                      setState(() {
+                        content = context.read<SettingsProvider>().prefs?.getBool("isPrefsInit").toString() ?? "UNSET";
+                      });
+                    },
+                    child: Text("Clear isPrefsInit"),
+                  ),
+                ],
+              ),
+              Expanded(
+                  child: SingleChildScrollView(
+                child: Text(
+                  content,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(fontFamily: 'monospace'), // Für bessere Lesbarkeit
+                ),
+              )),
+            ],
+          );
+        },
       ),
     );
   }
@@ -940,10 +1081,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     scale: 0.7,
                                     child: Switch(
                                       value: context.watch<GeneralPageProvider>().markAsReadOnOpen,
-                                      // value: field.value ?? false,
                                       onChanged: (value) {
                                         field.didChange(value);
-                                        //context.read<AccountsPageProvider>().setSaveIncomingPassword(value);
                                       },
                                     ),
                                   ),
@@ -959,6 +1098,72 @@ class _SettingsPageState extends State<SettingsPage> {
                             if (value == null) return;
                             context.read<GeneralPageProvider>().markAsReadOnOpen = value;
                           },
+                        ),
+                      ),
+                      SizedBox(
+                        width: fieldWidth,
+                        height: 40,
+                        child: FormBuilderField<bool>(
+                          initialValue: context.watch<GeneralPageProvider>().isExternalBlocked,
+                          name: "isExternalBlocked",
+                          builder: (FormFieldState<bool> field) {
+                            return InputDecorator(
+                              decoration: InputDecoration(
+                                labelText: LocaleKeys.external_content_is_blocked.tr(),
+                              ),
+                              child: Row(
+                                spacing: 8,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Transform.scale(
+                                    scale: 0.7,
+                                    child: Switch(
+                                      value: context.watch<GeneralPageProvider>().isExternalBlocked,
+                                      onChanged: (value) {
+                                        field.didChange(value);
+                                      },
+                                    ),
+                                  ),
+                                  context.watch<GeneralPageProvider>().isExternalBlocked
+                                      ? Text(
+                                          "${LocaleKeys.external_content_is_blocked.tr()} ${LocaleKeys.on.tr().toUpperCase()}")
+                                      : Text(
+                                          "${LocaleKeys.external_content_is_blocked.tr()} ${LocaleKeys.off.tr().toUpperCase()}")
+                                  //Spacer(),
+                                ],
+                              ),
+                            );
+                          },
+                          onChanged: (value) {
+                            if (value == null) return;
+                            context.read<GeneralPageProvider>().isExternalBlocked = value;
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: fieldWidth,
+                        child: FormBuilderDropdown<String?>(
+                          initialValue: context.read<SettingsProvider>().generalPrefs["startupAction"] ?? "last_used",
+                          decoration: InputDecoration(
+                            labelText: LocaleKeys.lbl_startupaction.tr(),
+                          ),
+                          name: 'startupAction',
+                          items: [
+                            DropdownMenuItem<String>(
+                              value: "no_action",
+                              child: Text(LocaleKeys.item_startupaction_none.tr()),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "last_used",
+                              child: Text(LocaleKeys.item_startupaction_lastused.tr()),
+                            ),
+                            ...MailAccountController().getMailAccountModels().entries.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: item.value.id ?? '',
+                                child: Text(item.key),
+                              );
+                            })
+                          ],
                         ),
                       ),
                     ],
@@ -1120,6 +1325,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                           context.read<SettingsProvider>().generalPrefs["markAsReadOnOpen"] =
                               _generalFormKey.currentState!.fields["markAsReadOnOpen"]!.value;
+
+                          context.read<SettingsProvider>().generalPrefs["startupAction"] =
+                              _generalFormKey.currentState!.fields["startupAction"]!.value;
+
+                          context.read<SettingsProvider>().generalPrefs["isExternalBlocked"] =
+                              _generalFormKey.currentState!.fields["isExternalBlocked"]!.value;
 
                           context.read<SettingsProvider>().saveGeneralPrefs();
                           succesMessage(LocaleKeys.msg_saved_successfully.tr());
@@ -1322,6 +1533,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChanged: (value) {
                             context.read<AccountsPageProvider>().incomingServerUsePassword =
                                 (value == Authentication.passwordClearText ||
+                                    value == Authentication.plain ||
                                     value == Authentication.passwordEncrypted);
                           },
                         ),
@@ -1515,6 +1727,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             onChanged: (value) {
                               context.read<AccountsPageProvider>().outgoingServerUsePassword =
                                   (value == Authentication.passwordClearText ||
+                                      value == Authentication.plain ||
                                       value == Authentication.passwordEncrypted);
                             },
                           ),
@@ -1654,6 +1867,17 @@ class _SettingsPageState extends State<SettingsPage> {
 
                                   try {
                                     if (newAcc == null) throw Exception("No valid Account");
+                                    if (await yesNoDialog<bool>(
+                                            title: "${LocaleKeys.txt_delete.tr()}?",
+                                            content: LocaleKeys.txt_really_delete.tr(),
+                                            strNo: LocaleKeys.cancel.tr(),
+                                            strYes: LocaleKeys.ok.tr(),
+                                            retYes: false,
+                                            retNo: true) ??
+                                        true) {
+                                      return;
+                                    }
+
                                     await MailAccountController().deleteMailAccountModel(newAcc);
                                     _accountsFormKey.currentState!.reset();
                                     context.read<AccountsPageProvider>().currentMailAccount = null;
@@ -1676,8 +1900,9 @@ class _SettingsPageState extends State<SettingsPage> {
                               try {
                                 MailAccountModel? newAcc = getMailAccountFromForm(context);
                                 if (newAcc != null) {
-                                  mc = MailClient(await newAcc.mailAccountWithSecrets);
-                                  await mc.connect();
+                                  mc = MailClient(await newAcc.mailAccountWithSecrets,
+                                      onBadCertificate: kDebugMode ? (p0) => true : null, isLogEnabled: kDebugMode);
+                                  await mc.connect(timeout: Duration(seconds: newAcc.timeout ?? 20));
                                   succesMessage(LocaleKeys.msg_connection_successful.tr());
                                 }
                               } catch (e) {

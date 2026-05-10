@@ -11,7 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 extension SupportedAuthentication on Authentication {
   static List<Authentication> get supported {
     return const [
-      Authentication.passwordClearText,
+      Authentication.plain,
+      // Authentication.passwordClearText,
       Authentication.passwordEncrypted,
       Authentication.oauth2,
       Authentication.none,
@@ -20,7 +21,7 @@ extension SupportedAuthentication on Authentication {
   }
 
   Authentication mapSupported() {
-    if (this == Authentication.plain) return Authentication.passwordClearText;
+    //if (this == Authentication.plain) return Authentication.passwordClearText;
     return supported.contains(this) ? this : Authentication.unknown;
   }
 }
@@ -1016,7 +1017,8 @@ class EmailProvider extends ChangeNotifier {
       currentMailAccount = await currentMailAccountModel!.mailAccountWithSecrets;
 
       currentMailClient = MailClient(currentMailAccount!,
-          isLogEnabled: false,
+          onBadCertificate: kDebugMode ? (p0) => true : null,
+          isLogEnabled: kDebugMode,
           refresh: currentMailAccount!.incoming.authentication.authentication == Authentication.oauth2
               ? currentMailAccountModel?.refreshOauthToken
               : null);
@@ -1041,6 +1043,12 @@ class EmailProvider extends ChangeNotifier {
       }
       if (pollingEnabled) {
         initializePolling();
+      }
+
+      if (NavService.navKey.currentContext != null) {
+        NavService.navKey.currentContext!.read<SettingsProvider>().generalPrefs["lastUsedAccoundHash"] =
+            currentMailAccountModel?.id;
+        NavService.navKey.currentContext!.read<SettingsProvider>().saveGeneralPrefs();
       }
     } on MailException catch (e) {
       MailAccountController().resetTemporaryPassword(currentMailAccount?.email);

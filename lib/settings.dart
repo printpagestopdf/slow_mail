@@ -88,6 +88,13 @@ class SettingsProvider extends ChangeNotifier {
 
     if (notifyerArgs?.containsKey("accountHash") ?? false) {
       await openAccountOnInit(notifyerArgs!["accountHash"]);
+    } else if (!(generalPrefs["startupAction"] as String?).isNullOrEmpty() &&
+        generalPrefs["startupAction"] != "no_action") {
+      if (generalPrefs["startupAction"] == "last_used" && generalPrefs["lastUsedAccoundHash"] != null) {
+        await openAccountOnInit(generalPrefs["lastUsedAccoundHash"]);
+      } else {
+        await openAccountOnInit(generalPrefs["startupAction"]);
+      }
     }
 
     await initWorkmanager();

@@ -36,6 +36,7 @@ class _MimeEmailViewerState extends State<MimeEmailViewer> {
     _loadedMimeMessageHTML = getEmailHTML(context);
     _attachExpandController.collapse();
     super.initState();
+    _isExternalBlocked = (context.read<SettingsProvider>().generalPrefs["isExternalBlocked"] ?? true);
     if (context.read<SettingsProvider>().generalPrefs["markAsReadOnOpen"] ?? false) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await context.read<EmailProvider>().setMessagesSeen(isSeen: true, items: <int>[widget.idxEmail]);

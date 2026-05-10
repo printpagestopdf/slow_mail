@@ -300,22 +300,22 @@ class MailAccountModel {
     bool outgoingAskForPassword = false,
   }) {
     userName = incomingUserName;
-    name = name;
-    email = email;
-    timeout = timeout;
+    this.name = name;
+    this.email = email;
+    this.timeout = timeout;
 
     incomingAuthentication = incomingAuthType;
     incomingHostname = incomingHost;
-    incomingPort = incomingPort;
-    incomingSocketType = incomingSocketType;
-    incomingPassword = incomingPassword;
-    incomingUserName = incomingUserName;
+    this.incomingPort = incomingPort;
+    this.incomingSocketType = incomingSocketType;
+    this.incomingPassword = incomingPassword;
+    this.incomingUserName = incomingUserName;
 
     if (outgoingAuthEqualIncoming) {
-      outgoingPassword = incomingPassword;
-      outgoingUserName = incomingUserName;
-      outgoingAuthType = incomingAuthType;
-      outgoingAskForPassword = incomingAskForPassword;
+      this.outgoingPassword = incomingPassword;
+      this.outgoingUserName = incomingUserName;
+      outgoingAuthentication = incomingAuthType;
+      this.outgoingAskForPassword = incomingAskForPassword;
     }
     outgoingAuthentication = outgoingAuthType;
     outgoingHostname = outgoingHost;

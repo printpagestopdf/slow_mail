@@ -155,5 +155,12 @@
   "txt_really_delete": "Wollen sie wirklich löschen",
   "txt_mailbox_is_empty": "Ordner {mailbox} ist leer",
   "external_content_is_blocked": "laden externer Inhalte blockiert",
-  "external_content_is_allowed": "laden externer Inhalte zugelassen"
+  "external_content_is_allowed": "laden externer Inhalte zugelassen",
+  "lbl_startupaction": "Emailkonto beim Start öffnen",
+  "item_startupaction_none": "Kein Konto öffnen",
+  "item_startupaction_lastused": "Zuletzt benutztes Konto",
+  "on": "ein",
+  "off": "aus",
+  "help": "Hilfe"
+
 }

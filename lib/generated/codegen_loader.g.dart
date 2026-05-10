@@ -171,7 +171,13 @@ class CodegenLoader extends AssetLoader{
   "txt_really_delete": "Wollen sie wirklich löschen",
   "txt_mailbox_is_empty": "Ordner {mailbox} ist leer",
   "external_content_is_blocked": "laden externer Inhalte blockiert",
-  "external_content_is_allowed": "laden externer Inhalte zugelassen"
+  "external_content_is_allowed": "laden externer Inhalte zugelassen",
+  "lbl_startupaction": "Emailkonto beim Start öffnen",
+  "item_startupaction_none": "Kein Konto öffnen",
+  "item_startupaction_lastused": "Zuletzt benutztes Konto",
+  "on": "ein",
+  "off": "aus",
+  "help": "Hilfe"
 };
 static const Map<String,dynamic> _en = {
   "msg_encrypt_error": "Unable to encrypt message (missing key?)",
@@ -330,7 +336,13 @@ static const Map<String,dynamic> _en = {
   "txt_really_delete": "Do you really want to delete?",
   "txt_mailbox_is_empty": "Mailbox {mailbox} is empty",
   "external_content_is_blocked": "External content is blocked",
-  "external_content_is_allowed": "External content is allowed"
+  "external_content_is_allowed": "External content is allowed",
+  "lbl_startupaction": "Open email account on startup",
+  "item_startupaction_none": "Don't open any account",
+  "item_startupaction_lastused": "Last used account",
+  "on": "On",
+  "off": "Off",
+  "help": "Help"
 };
 static const Map<String,dynamic> _es = {
   "msg_encrypt_error": "No se pudo cifrar el mensaje (¿falta la clave?)",
@@ -489,7 +501,13 @@ static const Map<String,dynamic> _es = {
   "txt_really_delete": "¿Realmente quieres eliminar?",
   "txt_mailbox_is_empty": "El buzón {mailbox} está vacío",
   "external_content_is_blocked": "El contenido externo está bloqueado",
-  "external_content_is_allowed": "El contenido externo está permitido"
+  "external_content_is_allowed": "El contenido externo está permitido",
+  "lbl_startupaction": "Abrir cuenta de correo al iniciar",
+  "item_startupaction_none": "No abrir ninguna cuenta",
+  "item_startupaction_lastused": "Última cuenta usada",
+  "on": "Activado",
+  "off": "Desactivado",
+  "help": "Ayuda"
 };
 static const Map<String,dynamic> _fr = {
   "msg_encrypt_error": "Impossible de chiffrer le message (clé manquante ?) ",
@@ -648,7 +666,13 @@ static const Map<String,dynamic> _fr = {
   "txt_really_delete": "Voulez-vous vraiment supprimer ? ",
   "txt_mailbox_is_empty": "La boîte de réception {mailbox} est vide",
   "external_content_is_blocked": "Le contenu externe est bloqué ",
-  "external_content_is_allowed": "Le contenu externe est autorisé "
+  "external_content_is_allowed": "Le contenu externe est autorisé ",
+  "lbl_startupaction": "Ouvrir le compte mail au démarrage",
+  "item_startupaction_none": "Ne pas ouvrir de compte",
+  "item_startupaction_lastused": "Dernier compte utilisé",
+  "on": "Activé",
+  "off": "Désactivé",
+  "help": "Aide"
 };
 static const Map<String,dynamic> _pt_BR = {
   "msg_encrypt_error": "Não foi possível criptografar a mensagem (chave ausente?)",
@@ -807,7 +831,13 @@ static const Map<String,dynamic> _pt_BR = {
   "txt_really_delete": "Deseja realmente excluir?",
   "txt_mailbox_is_empty": "A caixa de correio {mailbox} está vazia",
   "external_content_is_blocked": "Conteúdo externo bloqueado",
-  "external_content_is_allowed": "Conteúdo externo permitido"
+  "external_content_is_allowed": "Conteúdo externo permitido",
+  "lbl_startupaction": "Abrir conta de e-mail na inicialização",
+  "item_startupaction_none": "Não abrir nenhuma conta",
+  "item_startupaction_lastused": "Última conta usada",
+  "on": "Ativado",
+  "off": "Desativado",
+  "help": "Ajuda"
 };
 static const Map<String,dynamic> _zh_CN = {
   "msg_encrypt_error": "无法加密邮件（缺少密钥？）",
@@ -966,7 +996,13 @@ static const Map<String,dynamic> _zh_CN = {
   "txt_really_delete": "确定要删除吗？",
   "txt_mailbox_is_empty": "邮箱 {mailbox} 为空",
   "external_content_is_blocked": "外部内容已拦截",
-  "external_content_is_allowed": "外部内容已允许"
+  "external_content_is_allowed": "外部内容已允许",
+  "lbl_startupaction": "启动时打开邮箱账户",
+  "item_startupaction_none": "不打开任何账户",
+  "item_startupaction_lastused": "上次使用的账户",
+  "on": "开启",
+  "off": "关闭",
+  "help": "帮助"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"de": _de, "en": _en, "es": _es, "fr": _fr, "pt_BR": _pt_BR, "zh_CN": _zh_CN};
 }

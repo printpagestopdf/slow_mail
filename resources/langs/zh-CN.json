@@ -155,5 +155,11 @@
   "txt_really_delete": "确定要删除吗？",
   "txt_mailbox_is_empty": "邮箱 {mailbox} 为空",
   "external_content_is_blocked": "外部内容已拦截",
-  "external_content_is_allowed": "外部内容已允许"
+  "external_content_is_allowed": "外部内容已允许",
+  "lbl_startupaction": "启动时打开邮箱账户",
+  "item_startupaction_none": "不打开任何账户",
+  "item_startupaction_lastused": "上次使用的账户",
+  "on": "开启",
+  "off": "关闭",
+  "help": "帮助"
 }
