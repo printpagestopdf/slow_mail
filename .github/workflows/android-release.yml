@@ -11,7 +11,7 @@ jobs:
       - name: Repo auschecken
         uses: actions/checkout@v4
         with:
-          ref: 110bb8bc22d7b3245f1a5d96a7970cfabeb24631
+          ref: e1410e79e81e959f3d73c1533338c1cdf2829aa9
           
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
