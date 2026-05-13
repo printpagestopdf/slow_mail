@@ -22,9 +22,102 @@
 	width: 100%;
 }
 
+.icon.menu {
+	background-size: cover;
+	width: 2rem;
+	height: 1.5rem;
+}
+
+.icon.menu.toc {
+	background-image: url('./assets/images/toc.svg');
+}
+
+.icon.menu.home {
+	background-image: url('./assets/images/home.svg');
+}
+
+@media screen and (max-width: 1024px) {
+	.navbar-start .navbar-item {
+		display: inline;
+	}	
+	.drop_chevron {
+		display: none !important;
+	}	
+}
+
+
 @media screen and (max-width: 768px) {
 	#main-hero {
 		height: 200px;
 	}
 	
+}
+
+bdo[lang='a'] {
+background-color: red;
+  border-radius: 1.5rem;
+  border-color: red;
+  width: 1.5rem;
+  display: inline-block;
+  color: white;
+  text-align: center;
+}  
+
+.men-item-container {
+	display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.is-open .navbar-dropdown {
+	opacity: 1 !important;
+	pointer-events: unset !important;
+}
+
+.drop_chevron {
+	border-color: var(--navbar-item-hover-color,#2563eb) !important;
+  margin-top: -.375em !important;
+  right: 1.125em !important;
+
+  border:3px solid transparent;
+  border-radius:2px;
+  border-right:0;
+  border-top:0;
+  content:" ";
+  display:block;
+  height:.625em;
+  margin-top:-.4375em;
+  /* pointer-events:none; */
+
+  top:50%;
+  transform:rotate(-45deg);
+  transform-origin:center;
+  width:.625em
+}
+
+.small-desktop-text-50 {
+	width: 50%;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+
+@media screen and (max-width: 600px) {
+	
+	.small-desktop-text-50 {
+		width: unset;
+	}
+
+	.phone-desk-image-row .wp-block-media-text__media img {
+		padding-left: 5rem;
+		padding-right: 5rem;
+
+	}
+
+	.phone-desk-image-row .wp-block-media-text__content * {
+		margin: 0;
+	}
+	.phone-desk-image-row .wp-block-media-text__content {
+		padding: 0;
+	}
 }
