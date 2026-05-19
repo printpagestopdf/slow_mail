@@ -13,6 +13,15 @@
 	/* margin-right: 0.1rem; */
 }
 
+.image_copyright {
+	font-size: 70%;
+  background-color: #8080801f;
+  color: black;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-self: flex-start;
+}
+
 .lang-item {
 	display: inline;
 }
@@ -36,22 +45,6 @@
 	background-image: url('./assets/images/home.svg');
 }
 
-@media screen and (max-width: 1024px) {
-	.navbar-start .navbar-item {
-		display: inline;
-	}	
-	.drop_chevron {
-		display: none !important;
-	}	
-}
-
-
-@media screen and (max-width: 768px) {
-	#main-hero {
-		height: 200px;
-	}
-	
-}
 
 bdo[lang='a'] {
 background-color: red;
@@ -73,6 +66,7 @@ background-color: red;
 	opacity: 1 !important;
 	pointer-events: unset !important;
 }
+
 
 .drop_chevron {
 	border-color: var(--navbar-item-hover-color,#2563eb) !important;
@@ -101,13 +95,61 @@ background-color: red;
 	margin-right: auto;
 }
 
+.small-desktop-text-70 {
+	width: 70%;
+	margin-left:auto;
+	margin-right: auto;
+}
+
+.single-post .content p {
+	width: 70%;
+	margin-left:auto;
+	margin-right: auto;
+	
+}
+
+.phone-desk-image-row {
+	padding-left: 15%;
+}
+
+@media screen and (max-width: 1024px) {
+	.navbar-start .navbar-item {
+		display: inline;
+	}	
+	.drop_chevron {
+		display: none !important;
+	}	
+}
+
+@media screen and (min-width: 1024px) {
+	div.navbar-item:not(.is-open)   .navbar-dropdown{
+		opacity: 0 !important;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	#main-hero {
+		height: 200px;
+	}
+	
+}
+
 
 @media screen and (max-width: 600px) {
-	
+	.single-post .content p {
+		width: unset;
+		margin-left:unset;
+		margin-right: unset;
+		
+	}
+	.small-desktop-text-70,
 	.small-desktop-text-50 {
 		width: unset;
 	}
 
+	.phone-desk-image-row {
+		padding-left: unset;
+	}
 	.phone-desk-image-row .wp-block-media-text__media img {
 		padding-left: 5rem;
 		padding-right: 5rem;
