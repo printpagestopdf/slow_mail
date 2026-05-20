@@ -1,3 +1,5 @@
+[:de: Deutsch](/README.de.md)
+
 # Slow Mail
 
 <div align="center">
