@@ -1,16 +1,8 @@
-<p>Slow Mail is an Android email client for reading and composing emails.</p>
-<p>As a key privacy feature, it does not store emails or message lists locally. All configurations can be exported to an (optionally encrypted) configuration file. These files can be imported into any Slow Mail client. You can either merge them with your existing settings or apply them as a temporary overlay, making the imported configuration (accounts, settings, PGP keys) valid only for the current session. Configuration files can be stored on any storage medium (local storage, network drives, USB sticks, etc.).</p>
-<h2 id="features">Features</h2>
-<ul>
-<li><strong>No local storage of emails or message lists</strong><ul>
-<li><strong>Advantages:</strong> Enhanced privacy and reduced local storage usage</li>
-<li><strong>Disadvantages:</strong> Requires an active internet connection and may result in slower load times</li>
-</ul>
-</li>
-<li>Full IMAP and SMTP support</li>
-<li>Export and import configurations (accounts, settings, PGP keys) to external files</li>
-<li>Optional encryption for configuration files</li>
-<li>Session-only configuration overlays</li>
-<li>Built-in PGP encryption support</li>
-</ul>
-<strong><a href="https://printpagestopdf.github.io/slow_mail/">You can find help and more detailed information here</a></strong>
+<p><br>Slow Mail is an Android email app designed for viewing and sending emails.<br>You can add any number of email accounts from various providers, provided they support the standard IMAP and SMTP protocols.</p>
+<p><br>Privacy is a core focus of Slow Mail. For this reason, email lists and message content are never stored locally on your device. All data is automatically cleared as soon as you close the app. Besides enhancing data security, this also means that no device storage is consumed by email data.</p>
+<p><br>The trade-off, of course, is that emails can only be accessed while you have an active internet connection. (On-demand loading also generally takes a bit longer than reading from a local cache – hence the name Slow Mail 😆).<br></p>
+<p>Another privacy-focused feature allows you to save your configured email accounts in an (encrypted) file and import them into Slow Mail only when needed.</p>
+<p><br>When loading from a file, you can choose not to save the imported accounts permanently. Instead, they can temporarily override the app’s current configuration for the active session only.</p>
+<p><br>You can import a configuration file while the app is already open, but it’s equally possible to launch Slow Mail directly with a specific configuration file. These files can reside on any storage medium your device can access (local storage, USB drives, network locations, etc.).</p>
+<p><br>This enables a wide variety of flexible workflows. For example, the app can be set up with standard business accounts, but temporarily overridden with private accounts from a configuration file. After restarting the app, your business accounts will be restored. Similarly, multiple users can share a single device, each loading their own personal configuration file…</p>
+<p><br><strong><a href="https://printpagestopdf.github.io/slow_mail/">You can find help and more detailed information here</a></strong></p>
