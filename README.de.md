@@ -1,4 +1,4 @@
-[ :uk: English ](/)
+[ :uk: English ](https://github.com/printpagestopdf/slow_mail/)
 
 # Slow Mail
 
